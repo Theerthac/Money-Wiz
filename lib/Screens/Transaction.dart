@@ -54,7 +54,7 @@ class _TransactionState extends State<Transaction> {
            
             Container(
               width: double.infinity,
-              height: 140,
+              height: 141,
               decoration: BoxDecoration(
                   color: Color(0xFFFDC603),
                   borderRadius: BorderRadius.only(
