@@ -4,6 +4,7 @@ import 'Screens/Bottom.dart';
 import 'model/add_data.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
   Hive.registerAdapter(adddataAdapter());
   await Hive.openBox<add_data>('data');
@@ -15,6 +16,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(debugShowCheckedModeBanner: false, home: Bottom());
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+       home: Bottom()
+       );
+
   }
 }

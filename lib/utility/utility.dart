@@ -1,7 +1,7 @@
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:project/model/add_data.dart';
 
-///int totals = 10;
+// final data = AddList[index];
 
 final box = Hive.box<add_data>('data');
 
@@ -14,11 +14,9 @@ int total() {
       totalamt += int.parse(history2[i].amount);
     } else
       totalamt -= (int.parse(history2[i].amount));
-    // a.add(history2[i].select == 'Income'
-    //     ? int.parse(history2[i].amount)
-    //     : int.parse(history2[i].amount) * -1);
+   
   }
-  //totalamt = a.reduce((value, element) => value + element);
+  
   return totalamt;
 }
 

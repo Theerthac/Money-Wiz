@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
+
 import 'package:hive/hive.dart';
+import 'package:project/DB/DB.dart';
+import 'package:project/Screens/Bottom.dart';
 import 'package:project/Screens/Home.dart';
 import 'package:project/Screens/Transaction.dart';
 import 'package:project/model/add_data.dart';
@@ -15,14 +17,15 @@ class Add extends StatefulWidget {
 }
 
 class _AddState extends State<Add> {
-  final box = Hive.box<add_data>('data');
+  //final box = Hive.box<add_data>('data');
 
   DateTime date = DateTime.now();
   String? selecteditems;
 
   final TextEditingController Amount_controller = TextEditingController();
   final TextEditingController Discription_controller = TextEditingController();
-
+  final TextEditingController Date_controller = TextEditingController();
+  final TextEditingController Select_controller = TextEditingController();
   final List<String> _item = ['Income', 'Expense'];
   GlobalKey<FormState> _FieldKey = GlobalKey<FormState>();
 
@@ -101,20 +104,24 @@ class _AddState extends State<Add> {
           SizedBox(
             height: 30,
           ),
-          ElevatedButton(
-              onPressed: () {
-                var add = add_data(selecteditems!, date, Amount_controller.text,
-                    Discription_controller.text);
-                box.add(add);
-                if (_FieldKey.currentState!.validate()) {
-                  Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) {
-                      return Home();
-                    },
-                  ));
-                }
-              },
-              child: Text('Add')),
+          ElevatedButton.icon(
+            onPressed: () {
+             onAdddButtonClicked(context);
+              
+              // var add = add_data(selecteditems!, date, Amount_controller.text,
+              //     Discription_controller.text);
+              // box.add(add);
+              // if (_FieldKey.currentState!.validate()) {
+              //   Navigator.of(context).push(MaterialPageRoute(
+              //     builder: (context) {
+              //       return Home();
+              //     },
+              //   ));
+              // }
+            },
+            icon: Icon(Icons.add),
+            label: Text('Add'),
+          ),
         ]),
       ),
     );
@@ -126,9 +133,9 @@ class _AddState extends State<Add> {
       child: TextFormField(
           keyboardType: TextInputType.number,
           controller: Discription_controller,
-          validator: (value) {
-            return value!.isNotEmpty ? null : 'Invalid field';
-          },
+          // validator: (value) {
+          //   return value!.isNotEmpty ? null : 'Invalid field';
+          // },
           decoration: InputDecoration(
               contentPadding:
                   EdgeInsets.symmetric(horizontal: 15, vertical: 15),
@@ -154,9 +161,9 @@ class _AddState extends State<Add> {
       child: TextFormField(
           keyboardType: TextInputType.number,
           controller: Amount_controller,
-          validator: (value) {
-            return value!.isNotEmpty ? null : 'Invalid field';
-          },
+          // validator: (value) {
+          //   return value!.isNotEmpty ? null : 'Invalid field';
+          // },
           decoration: InputDecoration(
               contentPadding:
                   EdgeInsets.symmetric(horizontal: 15, vertical: 15),
@@ -269,5 +276,29 @@ class _AddState extends State<Add> {
         ),
       ],
     );
+  }
+
+  Future<void> onAdddButtonClicked(BuildContext context) async {
+    final _discription = Discription_controller.text.trim().toString();
+    final _amount = Amount_controller.text.trim().toString();
+    final _date = date;
+    final _selecttype = selecteditems;
+    final _id = DateTime.now().microsecondsSinceEpoch;
+    if (_discription.isEmpty || _amount.isEmpty || _selecttype!.isEmpty) {
+      return;
+    }
+
+    final lst = add_data(
+     _id,_selecttype,_date,_amount,_discription
+
+       );
+    //print('$select $date $amount $Discription_controller');
+    AdddMoney(lst);
+
+    Navigator.of(context).pushReplacement(MaterialPageRoute(
+      builder: (context) {
+        return Bottom();
+      },
+    ));
   }
 }
