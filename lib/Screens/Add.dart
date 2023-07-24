@@ -22,10 +22,11 @@ class _AddState extends State<Add> {
   DateTime date = DateTime.now();
   String? selecteditems;
 
-  final TextEditingController Amount_controller = TextEditingController();
   final TextEditingController Discription_controller = TextEditingController();
-  final TextEditingController Date_controller = TextEditingController();
-  final TextEditingController Select_controller = TextEditingController();
+  final TextEditingController Amount_controller = TextEditingController();
+  // final TextEditingController Date_controller = TextEditingController();
+  // final TextEditingController Select_controller = TextEditingController();
+
   final List<String> _item = ['Income', 'Expense'];
   GlobalKey<FormState> _FieldKey = GlobalKey<FormState>();
 
@@ -106,17 +107,18 @@ class _AddState extends State<Add> {
           ),
           ElevatedButton.icon(
             onPressed: () {
-             onAdddButtonClicked(context);
-              
+              onAddButtonClicked(context);
+
               // var add = add_data(selecteditems!, date, Amount_controller.text,
               //     Discription_controller.text);
               // box.add(add);
               // if (_FieldKey.currentState!.validate()) {
-              //   Navigator.of(context).push(MaterialPageRoute(
-              //     builder: (context) {
-              //       return Home();
-              //     },
-              //   ));
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) {
+                  return Home();
+                  
+                },
+              ));
               // }
             },
             icon: Icon(Icons.add),
@@ -278,27 +280,48 @@ class _AddState extends State<Add> {
     );
   }
 
-  Future<void> onAdddButtonClicked(BuildContext context) async {
-    final _discription = Discription_controller.text.trim().toString();
+//   Future<void> onAdddButtonClicked(BuildContext context) async {
+//     final _discription = Discription_controller.text.trim().toString();
+//     final _amount = Amount_controller.text.trim().toString();
+//     final _date = date;
+//     final _selecttype = selecteditems;
+//     final _id = DateTime.now().microsecondsSinceEpoch;
+//     if (_discription.isEmpty || _amount.isEmpty || _selecttype!.isEmpty) {
+//       return;
+//     }
+
+//     final lst = add_data(_id, _selecttype, _date, _amount, _discription);
+//     //print('$select $date $amount $Discription_controller');
+//     addMoney(lst);
+//     Navigator.of(context).pushReplacement(MaterialPageRoute(
+//       builder: (context) {
+//         return Bottom();
+//       },
+//     ));
+//   }
+// }
+  Future<void> onAddButtonClicked(BuildContext context) async {
+    final _selecttype = selecteditems.toString();
+    final _ddate = DateTime.now();
     final _amount = Amount_controller.text.trim().toString();
-    final _date = date;
-    final _selecttype = selecteditems;
-    final _id = DateTime.now().microsecondsSinceEpoch;
-    if (_discription.isEmpty || _amount.isEmpty || _selecttype!.isEmpty) {
+    final _discription = Discription_controller.text.trim().toString();
+
+    if (_selecttype!.isEmpty || _amount.isEmpty || _discription.isEmpty) {
       return;
-    }
+    } else {
+      final llist = add_data(
+        select: _selecttype,
+        dateTime: _ddate,
+        amount: _amount,
+        discription: _discription,
+      );
 
-    final lst = add_data(
-     _id,_selecttype,_date,_amount,_discription
+      addMoney(llist);
 
-       );
-    //print('$select $date $amount $Discription_controller');
-    AdddMoney(lst);
-
-    Navigator.of(context).pushReplacement(MaterialPageRoute(
-      builder: (context) {
+      Navigator.of(context)
+          .pushReplacement(MaterialPageRoute(builder: (context) {
         return Bottom();
-      },
-    ));
+      }));
+    }
   }
 }

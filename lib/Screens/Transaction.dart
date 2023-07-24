@@ -47,6 +47,7 @@ class _TransactionState extends State<Transaction> {
 
   @override
   Widget build(BuildContext context) {
+    getAlldata();
     return Scaffold(
         body: SafeArea(
             child: Stack(children: [
@@ -140,147 +141,78 @@ class _TransactionState extends State<Transaction> {
         //               fontWeight: FontWeight.bold),
         //         ),
         //       )
-        // child:ListView.builder(
-        //     itemCount: 4,
-        //     itemBuilder: (BuildContext context, int index) {
-        // history = Box.values.toList()[index];
-        // return Slidable(
-        //     key: UniqueKey(),
-        //     startActionPane: ActionPane(
-        //         dismissible: DismissiblePane(onDismissed: () {
-        //           setState(() {
-        //           //  history.delete();
-        //           });
-        //         }),
-        //         motion: BehindMotion(),
-        //         children: [
-        //           SlidableAction(
-        //             label: 'Delete',
-        //             icon: Icons.delete,
-        //             backgroundColor: Colors.red,
-        //             onPressed: (direction) {
-        //               setState(() {
-        //                // history.delete();
-        //               });
-        //             },
-        //           ),
-        //         ])
-        //    // child: get(index, history));
-        //                       })),
-        //         ])
-        //       ],
-        //     )),
-        //   );
-        // }
-
-        // ListTile get(int index, add_data history) {
-        //   return ListTile(
-        //       title: Text(
-        //         history.discription,
-        //         style: TextStyle(
-        //           fontSize: 19,
-        //           fontWeight: FontWeight.w700,
-        //         ),
-        //       ),
-        //       subtitle: Text(
-        //         '  ${history.dateTime.year}-${history.dateTime.day}-${history.dateTime.month}',
-        //         style: TextStyle(
-        //           fontWeight: FontWeight.w700,
-        //         ),
-        //       ),
-        //       trailing: Row(mainAxisSize: MainAxisSize.min, children: [
-        //         Text(
-        //           history.amount,
-        //           style: TextStyle(
-        //               fontSize: 18,
-        //               fontWeight: FontWeight.w700,
-        //               color: history.select == 'Income' ? Colors.green : Colors.red),
-        //         ),
-        //         SizedBox(width: 20),
-        //         IconButton(
-        //             onPressed: () async {
-        //               // await showInformationDialog(context);
-        //             },
-        //             icon: Icon(
-        //               Icons.edit,
-        //               color: Colors.green,
-        //             )),
-        //       ]));
-        // }
 
         Expanded(
-            child: ValueListenableBuilder(
-          valueListenable: AddListNotifier,
-          builder: (BuildContext ctx, List<add_data> AddList, Widget? child) {
-            return ListView.separated(
-                itemBuilder: (ctx, index) {
-                  final data = AddList[index];
-                  return Slidable(
-                    key: UniqueKey(),
-                    startActionPane: ActionPane(
-                        dismissible: DismissiblePane(
-                          onDismissed: () {},
-                        ),
-                        motion: BehindMotion(),
-                        children: [
-                          SlidableAction(
-                            label: 'Delete',
-                            icon: Icons.delete,
-                            backgroundColor: Colors.red,
-                            onPressed: (direction) {
-                              if (data.id != null) {
-                               // deleteList(data.id!);
-                              } else {
-                                print('List  id is null.Unable to delete');
-                              }
-                            },
-                          )
-                        ]),
-                    child: ListTile(
-                        title: Text(
-                          data.discription,
-                          style: TextStyle(
-                            fontSize: 19,
-                            fontWeight: FontWeight.w700,
+          child: ValueListenableBuilder(
+            valueListenable: addListNotifier,
+            builder: (BuildContext ctx, List<add_data> AddList, Widget? child) {
+              return ListView.separated(
+                  itemBuilder: (context, index) {
+                    final data = AddList[index];
+                    return Slidable(
+                      key: UniqueKey(),
+                      startActionPane: ActionPane(
+                          dismissible: DismissiblePane(
+                            onDismissed: () {},
                           ),
-                        ),
-                        subtitle: Text(
-                          '  ${data.dateTime.year}-${data.dateTime.day}-${data.dateTime.month}',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                        trailing: Row(
-                          mainAxisSize: MainAxisSize.min,
+                          motion: BehindMotion(),
                           children: [
-                            Text(
-                              data.amount,
-                              style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w700,
-                                  color: data.select == 'Income'
-                                      ? Colors.green
-                                      : Colors.red),
+                            SlidableAction(
+                                label: 'Delete',
+                                icon: Icons.delete,
+                                backgroundColor: Colors.red,
+                                onPressed: (direction) {
+                                  // if (data.id != null) {
+                                  //   // deleteList(data.id!);
+                                 // } else {}
+                                })
+                          ]),
+                      child: ListTile(
+                          title: Text(
+                            data.discription,
+                            style: TextStyle(
+                              fontSize: 19,
+                              fontWeight: FontWeight.w700,
                             ),
-                            SizedBox(
-                              width: 10,
+                          ),
+                          subtitle: Text(
+                            '  ${data.dateTime.year}-${data.dateTime.day}-${data.dateTime.month}',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w700,
                             ),
-                            IconButton(
-                                onPressed: () {},
-                                icon: Icon(
-                                  Icons.edit,
-                                  color: Colors.green,
-                                ))
-                          ],
-                        )),
-                  );
-                },
-                separatorBuilder: (ctx, index) {
-                  return Divider();
-                },
-                itemCount: AddList.length);
-          },
-        ))
+                          ),
+                          trailing: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
+                                data.amount,
+                                style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w700,
+                                    color: data.select == 'Income'
+                                        ? Colors.green
+                                        : Colors.red),
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              IconButton(
+                                  onPressed: () {},
+                                  icon: Icon(
+                                    Icons.edit,
+                                    color: Colors.green,
+                                  ))
+                            ],
+                          )),
+                    );
+                  },
+                  separatorBuilder: (context, index) {
+                    return const Divider();
+                  },
+                  itemCount: AddList.length);
+            },
+          ),
+        )
       ])
     ])));
   }

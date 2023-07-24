@@ -3,10 +3,12 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:project/DB/DB.dart';
+
 import 'package:project/Screens/Transaction.dart';
-import 'package:project/Utility/utility.dart';
 
 import 'package:project/model/add_data.dart';
+
+import '../utility/utility.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -21,13 +23,13 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    getAllData();
+    getAlldata();
     return Scaffold(
         body: SafeArea(
             child: Stack(children: [
-            Column(
-                  children: [
-                    Container(
+      Column(
+        children: [
+          Container(
             width: double.infinity,
             height: 240,
             decoration: BoxDecoration(
@@ -50,16 +52,16 @@ class _HomeState extends State<Home> {
                 ],
               ),
             ),
-                    ),
-                  ],
-            ),
-            Positioned(
-                  top: 140,
-                  left: 37,
-                  child: Container(
-                    height: 170,
-                    width: 320,
-                    decoration: BoxDecoration(
+          ),
+        ],
+      ),
+      Positioned(
+        top: 140,
+        left: 37,
+        child: Container(
+          height: 170,
+          width: 320,
+          decoration: BoxDecoration(
             boxShadow: [
               BoxShadow(
                 color: Colors.amber.shade300,
@@ -70,8 +72,8 @@ class _HomeState extends State<Home> {
             ],
             color: Color(0xFFFCFF5B),
             borderRadius: BorderRadius.circular(15),
-                    ),
-                    child: Column(
+          ),
+          child: Column(
             children: [
               SizedBox(
                 height: 10,
@@ -182,12 +184,12 @@ class _HomeState extends State<Home> {
                 ),
               )
             ],
-                    ),
-                  ),
-            ),
-            Padding(
-                    padding: const EdgeInsets.only(top: 350),
-                    child: Column(children: [
+          ),
+        ),
+      ),
+      Padding(
+          padding: const EdgeInsets.only(top: 350),
+          child: Column(children: [
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15),
               child: ValueListenableBuilder(
@@ -229,94 +231,92 @@ class _HomeState extends State<Home> {
             SizedBox(
               height: 30,
             ),
-                    
-                    //             Expanded(
-                    //                 child: ValueListenableBuilder(
-                    //                   valueListenable: AddListNotifier,
-                    //                   builder: (BuildContext ctx, List<add_data> AddList, Widget? child) {
-                    //                     return  ListView.builder(
-                    //                       itemCount: AddList.length > 4 ? 4 : box.length,
-                    //                       itemBuilder: (ctx, index) {
-                    //                        // final data = AddList[index];
-                    //                        // history = box.values.toList()[index];
-                    //                         //return get(index, history);
-                    //                       });
-                    //     }  ))
-                    //           ]),
-                    //         )
-                    //       ])),
-                    //     );
-                    //   }
-                    
-                    //   ListTile get(int index, add_data history) {
-                    //     return ListTile(
-                    //       title: Text(
-                    //         history.discription,
-                    //         style: TextStyle(
-                    //           fontSize: 19,
-                    //           fontWeight: FontWeight.w700,
-                    //         ),
-                    //       ),
-                    //       subtitle: Text(
-                    //         '  ${history.dateTime.year}-${history.dateTime.day}-${history.dateTime.month}',
-                    //         style: TextStyle(
-                    //           fontWeight: FontWeight.w700,
-                    //         ),
-                    //       ),
-                    //       trailing: Text(
-                    
-                    //         history.amount,
-                    //         style: TextStyle(
-                    //             fontSize: 18,
-                    //             fontWeight: FontWeight.w700,
-                    //             color: history.select == 'Income' ? Colors.green : Colors.red),
-                    //       ),
-                    //     );
-                    //  }
-                    
+
+            //             Expanded(
+            //                 child: ValueListenableBuilder(
+            //                   valueListenable: AddListNotifier,
+            //                   builder: (BuildContext ctx, List<add_data> AddList, Widget? child) {
+            //                     return  ListView.builder(
+            //                       itemCount: AddList.length > 4 ? 4 : box.length,
+            //                       itemBuilder: (ctx, index) {
+            //                        // final data = AddList[index];
+            //                        // history = box.values.toList()[index];
+            //                         //return get(index, history);
+            //                       });
+            //     }  ))
+            //           ]),
+            //         )
+            //       ])),
+            //     );
+            //   }
+
+            //   ListTile get(int index, add_data history) {
+            //     return ListTile(
+            //       title: Text(
+            //         history.discription,
+            //         style: TextStyle(
+            //           fontSize: 19,
+            //           fontWeight: FontWeight.w700,
+            //         ),
+            //       ),
+            //       subtitle: Text(
+            //         '  ${history.dateTime.year}-${history.dateTime.day}-${history.dateTime.month}',
+            //         style: TextStyle(
+            //           fontWeight: FontWeight.w700,
+            //         ),
+            //       ),
+            //       trailing: Text(
+
+            //         history.amount,
+            //         style: TextStyle(
+            //             fontSize: 18,
+            //             fontWeight: FontWeight.w700,
+            //             color: history.select == 'Income' ? Colors.green : Colors.red),
+            //       ),
+            //     );
+            //  }
+
             Expanded(
               child: ValueListenableBuilder(
-                valueListenable: AddListNotifier,
+                valueListenable: addListNotifier,
                 builder:
-                (BuildContext ctx, List<add_data> AddList, Widget? child) {
-              return ListView.separated(
-                  itemBuilder: (ctx, index) {
-                    final data = AddList[index];
-                    return ListTile(
-                      title: Text(
-                     data.discription,
-                     style: TextStyle(
-                     fontSize: 19,
-                     fontWeight: FontWeight.w700,
-                       ),
-                       ),
-                      subtitle: Text(
-                     '  ${data.dateTime.year}-${data.dateTime.day}-${data.dateTime.month}',
-                 style: TextStyle(
-                 fontWeight: FontWeight.w700,
-                        ),
-                     ),
-                      trailing: Text(
-                       data.amount,
-                       style: TextStyle(
-                       fontSize: 18,
-                      fontWeight: FontWeight.w700,
-                      
-                       color: data.select == 'Income'? Colors.green : Colors.red
-                      
-                       ),
-                    ));
-                  },
-                  separatorBuilder: (ctx, index) {
-                    return Divider();
-                  },
-                  itemCount: AddList.length > 4 ? 4 : box.length,);
+                    (BuildContext ctx, List<add_data> AddList, Widget? child) {
+                  return ListView.separated(
+                    itemBuilder: (ctx, index) {
+                      final data = AddList[index];
+                      return ListTile(
+                          title: Text(
+                            data.discription,
+                            style: TextStyle(
+                              fontSize: 19,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                          subtitle: Text(
+                            '  ${data.dateTime.year}-${data.dateTime.day}-${data.dateTime.month}',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                          trailing: Text(
+                            data.amount,
+                            style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w700,
+                                color: data.select == 'Income'
+                                    ? Colors.green
+                                    : Colors.red),
+                          ));
+                    },
+                    separatorBuilder: (ctx, index) {
+                      return Divider();
+                    },
+                    itemCount: AddList.length > 4 ? 4 : AddList.length,
+                  );
                 },
               ),
             )
-                    ]))
-                    ])
-                    )
-                    );
+          ]))
+    ])));
   }
 }
