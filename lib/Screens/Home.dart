@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:project/DB/DB.dart';
-
 import 'package:project/Screens/Transaction.dart';
-
 import 'package:project/model/add_data.dart';
+import 'package:project/utility/utility.dart';
 
-import '../utility/utility.dart';
+
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -16,13 +13,15 @@ class Home extends StatefulWidget {
   @override
   State<Home> createState() => _HomeState();
 }
-
+  
 class _HomeState extends State<Home> {
   // var history;
+  
   //final box = Hive.box<add_data>('data');
 
   @override
   Widget build(BuildContext context) {
+   
     getAlldata();
     return Scaffold(
         body: SafeArea(
@@ -57,7 +56,7 @@ class _HomeState extends State<Home> {
       ),
       Positioned(
         top: 140,
-        left: 37,
+        left: 28,
         child: Container(
           height: 170,
           width: 320,
@@ -100,7 +99,7 @@ class _HomeState extends State<Home> {
                 child: Row(
                   children: [
                     Text(
-                      ' ${total()}',
+                      '\$ ${IncomeExp().total()}',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 23,
@@ -167,14 +166,14 @@ class _HomeState extends State<Home> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      '\$ ${income()}',
+                      '\$ ${IncomeExp().income()}',
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
                         fontSize: 18,
                       ),
                     ),
                     Text(
-                      '\$ ${expenses()}',
+                      '\$ ${IncomeExp().expense()}',
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
                         fontSize: 18,
@@ -193,7 +192,7 @@ class _HomeState extends State<Home> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15),
               child: ValueListenableBuilder(
-                valueListenable: box.listenable(),
+                valueListenable: addListNotifier,
                 builder: (context, value, child) {
                   return Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -231,51 +230,6 @@ class _HomeState extends State<Home> {
             SizedBox(
               height: 30,
             ),
-
-            //             Expanded(
-            //                 child: ValueListenableBuilder(
-            //                   valueListenable: AddListNotifier,
-            //                   builder: (BuildContext ctx, List<add_data> AddList, Widget? child) {
-            //                     return  ListView.builder(
-            //                       itemCount: AddList.length > 4 ? 4 : box.length,
-            //                       itemBuilder: (ctx, index) {
-            //                        // final data = AddList[index];
-            //                        // history = box.values.toList()[index];
-            //                         //return get(index, history);
-            //                       });
-            //     }  ))
-            //           ]),
-            //         )
-            //       ])),
-            //     );
-            //   }
-
-            //   ListTile get(int index, add_data history) {
-            //     return ListTile(
-            //       title: Text(
-            //         history.discription,
-            //         style: TextStyle(
-            //           fontSize: 19,
-            //           fontWeight: FontWeight.w700,
-            //         ),
-            //       ),
-            //       subtitle: Text(
-            //         '  ${history.dateTime.year}-${history.dateTime.day}-${history.dateTime.month}',
-            //         style: TextStyle(
-            //           fontWeight: FontWeight.w700,
-            //         ),
-            //       ),
-            //       trailing: Text(
-
-            //         history.amount,
-            //         style: TextStyle(
-            //             fontSize: 18,
-            //             fontWeight: FontWeight.w700,
-            //             color: history.select == 'Income' ? Colors.green : Colors.red),
-            //       ),
-            //     );
-            //  }
-
             Expanded(
               child: ValueListenableBuilder(
                 valueListenable: addListNotifier,
@@ -286,7 +240,7 @@ class _HomeState extends State<Home> {
                       final data = AddList[index];
                       return ListTile(
                           title: Text(
-                            data.discription,
+                            data.description,
                             style: TextStyle(
                               fontSize: 19,
                               fontWeight: FontWeight.w700,

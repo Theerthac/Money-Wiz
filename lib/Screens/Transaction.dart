@@ -1,12 +1,13 @@
-import 'package:anim_search_bar/anim_search_bar.dart';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:project/DB/DB.dart';
 import 'package:project/Screens/Bottom.dart';
+import 'package:project/Screens/Edit.dart';
+import 'package:project/Screens/Search.dart';
 import 'package:project/model/add_data.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:project/model/add_data.dart';
+import 'package:project/utility/utility.dart';
+import '../DB/DB.dart';
 
 class Transaction extends StatefulWidget {
   const Transaction({super.key});
@@ -16,34 +17,8 @@ class Transaction extends StatefulWidget {
 }
 
 class _TransactionState extends State<Transaction> {
-  // var history;
+   final box = Hive.box<add_data>('data');
 
-  //final Box = Hive.box<add_data>('data');
-
-  GlobalKey<FormState> _FormKey = GlobalKey<FormState>();
-
-  List<add_data> searchlist = [];
-
-  TextEditingController SearchController = TextEditingController();
-
-  @override
-  void initState() {
-    super.initState();
-    searchlist = searchlist.toList().cast<add_data>().reversed.toList();
-  }
-
-  void _filterTransactions(String query) {
-    setState(() {
-      searchlist = searchlist
-          .cast<add_data>()
-          .where((transaction) => transaction.discription
-              .toLowerCase()
-              .contains(query.toLowerCase()))
-          .toList()
-          .reversed
-          .toList();
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -99,48 +74,13 @@ class _TransactionState extends State<Transaction> {
         SizedBox(
           height: 20,
         ),
-        Container(
-          margin: EdgeInsets.only(bottom: 20),
-          width: 350,
-          height: 48,
-          decoration: BoxDecoration(borderRadius: BorderRadius.circular(8)),
-          child: TextFormField(
-            onChanged: _filterTransactions,
-            controller: SearchController,
-            decoration: InputDecoration(
-                prefixIcon: Icon(Icons.search),
-                contentPadding: EdgeInsets.only(bottom: 20),
-                hintText: 'Search',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                )),
-          ),
-        ),
-        // Padding(
-        //   padding: const EdgeInsets.only(left: 30),
-        //   child: AnimSearchBar(
-        //     width: 400,
-        //     textController: SearchController,
-        //     onSuffixTap: () {
-        //       setState(() {
-        //         SearchController.clear();
-        //          _filterTransactions(" ");
-        //       });
-        //     },
-        //     onSubmitted: _filterTransactions
-        //   ),
-        // ),
-        // Expanded(
-        // child: searchlist.length == 0
-        //     ? Center(
-        //         child: Text(
-        //           "Now result found",
-        //           style: TextStyle(
-        //               color: Colors.red,
-        //               fontSize: 22,
-        //               fontWeight: FontWeight.bold),
-        //         ),
-        //       )
+
+        IconButton(
+            onPressed: () {
+              showSearch(context: context, delegate: search());
+            },
+            icon: const Icon(Icons.search)),
+
 
         Expanded(
           child: ValueListenableBuilder(
@@ -153,23 +93,29 @@ class _TransactionState extends State<Transaction> {
                       key: UniqueKey(),
                       startActionPane: ActionPane(
                           dismissible: DismissiblePane(
-                            onDismissed: () {},
+                            onDismissed: () {
+                              setState(() {
+                                deletedata(index);
+                              });
+                            },
                           ),
                           motion: BehindMotion(),
                           children: [
                             SlidableAction(
-                                label: 'Delete',
-                                icon: Icons.delete,
-                                backgroundColor: Colors.red,
-                                onPressed: (direction) {
-                                  // if (data.id != null) {
-                                  //   // deleteList(data.id!);
-                                 // } else {}
-                                })
+                              label: 'Delete',
+                              icon: Icons.delete,
+                              backgroundColor: Colors.red,
+                              onPressed: (context) {
+                                setState(() {
+                                  deletedata(index);
+                                  IncomeExp();
+                                });
+                              },
+                            )
                           ]),
                       child: ListTile(
                           title: Text(
-                            data.discription,
+                            data.description,
                             style: TextStyle(
                               fontSize: 19,
                               fontWeight: FontWeight.w700,
@@ -197,7 +143,20 @@ class _TransactionState extends State<Transaction> {
                                 width: 10,
                               ),
                               IconButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    setState(() {
+                                      Navigator.of(context).push(MaterialPageRoute(
+                                          builder: (context) => Edit_Data(
+                                              index: index,
+                                              select: data.select,
+                                              date:
+                                                  '  ${data.dateTime.year}-${data.dateTime.day}-${data.dateTime.month}',
+                                              amount: data.amount,
+                                              discription: data.description)));
+
+                                      IncomeExp();
+                                    });
+                                  },
                                   icon: Icon(
                                     Icons.edit,
                                     color: Colors.green,
@@ -216,51 +175,4 @@ class _TransactionState extends State<Transaction> {
       ])
     ])));
   }
-  // Future<void> showInformationDialog(BuildContext context) async {
-  //   return await showDialog(
-  //       context: context,
-  //       builder: (context) {
-  //         final TextEditingController _discriptionController =
-  //             TextEditingController();
-  //         final TextEditingController _amountController =
-  //             TextEditingController();
-
-  //         return StatefulBuilder(builder: (context, SetState) {
-  //           return AlertDialog(
-  //             content: Form(
-  //               key: _FormKey,
-  //               child: Column(
-  //                 mainAxisSize: MainAxisSize.min,
-  //                 children: [
-  //                   TextFormField(
-  //                     controller: _discriptionController,
-  //                     validator: (value) {
-  //                       return value!.isNotEmpty ? null : 'Invalid field';
-  //                     },
-  //                     decoration: InputDecoration(hintText: 'Discription'),
-  //                   ),
-  //                   TextFormField(
-  //                     controller: _amountController,
-  //                     validator: (value) {
-  //                       return value!.isNotEmpty ? null : 'Invalid field';
-  //                     },
-  //                     decoration: InputDecoration(hintText: 'Amount'),
-  //                   ),
-  //                 ],
-  //               ),
-  //             ),
-  //             actions: <Widget>[
-  //               TextButton(
-  //                 child: Text('okay'),
-  //                 onPressed: () {
-  //                   if (_FormKey.currentState!.validate()) {
-  //                     Navigator.of(context).pop();
-  //                   }
-  //                 },
-  //               ),
-  //             ],
-  //           );
-  //         });
-  //       });
-  // }
 }

@@ -62,11 +62,68 @@ class _AboutState extends State<About> {
             ),
           ),
             ],
+          ),
+          Column(
+            children: [
+              SizedBox(height: 20,),
+               Padding(
+                 padding: const EdgeInsets.only(top: 160,right: 150),
+                 child: Text('Money Management',style: TextStyle(
+                  fontSize: 20, fontWeight: FontWeight.bold
+                             ),),
+               ),
+              SizedBox(height: 40,),
+               Padding(
+                 padding: const EdgeInsets.only(bottom: 50,right: 20,top: 20),
+                 child: Text(
+                          '"This is an app where you can\nadd your daily transactions\naccording to the category which it belongs to."',
+                          textAlign: TextAlign.left,
+                          style: TextStyle(fontSize: 17),
+                        ),
+               ),
+
+                      SizedBox(height: 40,),
+
+                      Padding(
+                        padding: const EdgeInsets.only(left: 150),
+                        child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Text(
+                            'Developed by',
+                              textAlign: TextAlign.left,
+                            style: TextStyle(fontSize: 16),
+                          ),
+                        ],
+                                          ),
+                      ),
+
+                     Padding(
+                       padding: const EdgeInsets.only(top: 15,left: 223),
+                       child: Row(
+                        children: [
+                          Center(
+                            child: Text(
+                              'Theertha.C',
+                                textAlign: TextAlign.left,
+                              style: TextStyle(
+                                  fontSize: 19, fontWeight: FontWeight.bold),
+                            ),
+                          )
+                        ],
+                                         ),
+                     )
+
+
+            ],
+            
           )
             ],
-          )
+            
+          ),
         
-
+        
+          
       ));
   }
 }

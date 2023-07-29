@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
+
 
 class Statistics extends StatefulWidget {
   const Statistics({super.key});
@@ -16,8 +16,9 @@ class _StatisticsState extends State<Statistics> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
+        
           child: CustomScrollView(
-        slivers: [
+                slivers: [
           SliverToBoxAdapter(
             child: Column(
               children: [
@@ -72,12 +73,13 @@ class _StatisticsState extends State<Statistics> {
                       }),
                     ],
                   ),
-                )
+                ),
+                
               ],
             ),
           )
-        ],
-      )),
+                ],
+              )),
     );
   }
 }

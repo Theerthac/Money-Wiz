@@ -1,32 +1,49 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:project/Screens/Bottom.dart';
-import 'package:project/model/add_data.dart';
-
-
 import '../DB/DB.dart';
+import '../model/add_data.dart';
 
-class Add extends StatefulWidget {
-  const Add({super.key});
+class Edit_Data extends StatefulWidget {
+  var select;
+  var date;
+  var amount;
+  var discription;
+   late int index;
+
+  Edit_Data({
+    required this.index,
+    required this.select,
+    required this.date,
+    required this.amount,
+    required this.discription,
+  });
 
   @override
-  State<Add> createState() => _AddState();
+  State<Edit_Data> createState() => _Edit_DataState();
 }
 
-class _AddState extends State<Add> {
-  //final box = Hive.box<add_data>('data');
-
+class _Edit_DataState extends State<Edit_Data> {
   DateTime date = DateTime.now();
   String? selecteditems;
 
-  final TextEditingController Description_controller = TextEditingController();
+  final TextEditingController Discription_controller = TextEditingController();
   final TextEditingController Amount_controller = TextEditingController();
-  // final TextEditingController Date_controller = TextEditingController();
-  // final TextEditingController Select_controller = TextEditingController();
+  final TextEditingController Date_controller = TextEditingController();
+  final TextEditingController Select_controller = TextEditingController();
+ 
+ 
+  @override
+  void initState() {
+    super.initState();
+  //final Select_controller = TextEditingController(text: widget.select);
+  //final  Date_controller = TextEditingController(text: widget.select);
+  final Amount_controller = TextEditingController(text: widget.select);
+  final Discription_controller = TextEditingController(text: widget.select);
+
+  }
 
   final List<String> _item = ['Income', 'Expense'];
-  GlobalKey<FormState> _FieldKey = GlobalKey<FormState>();
-
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
@@ -53,78 +70,61 @@ class _AddState extends State<Add> {
       ),
       width: 340,
       height: 550,
-      child: Form(
-        key: _FieldKey,
-        child: Column(children: [
-          SizedBox(
-            height: 50,
-          ),
-          name(),
-          SizedBox(
-            height: 30,
-          ),
-          Container(
-            alignment: Alignment.bottomLeft,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(
-                    width: 2, color: Color.fromARGB(255, 182, 181, 181))),
-            width: 300,
-            child: TextButton(
-              onPressed: () async {
-                DateTime? newDate = await showDatePicker(
-                    context: context,
-                    initialDate: date,
-                    firstDate: DateTime(2020),
-                    lastDate: DateTime(2100));
-                if (newDate == Null) return;
-                setState(() {
-                  date = newDate!;
-                });
-              },
-              child: Text(
-                'Date  :${date.year} /  ${date.day} / ${date.month}',
-                style: TextStyle(
-                  fontSize: 15,
-                  color: Colors.black,
-                ),
+      child: Column(children: [
+        SizedBox(
+          height: 50,
+        ),
+        name(),
+        SizedBox(
+          height: 30,
+        ),
+        Container(
+          alignment: Alignment.bottomLeft,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(
+                  width: 2, color: Color.fromARGB(255, 182, 181, 181))),
+          width: 300,
+          child: TextButton(
+            onPressed: () async {
+              DateTime? newDate = await showDatePicker(
+                  context: context,
+                  initialDate: date,
+                  firstDate: DateTime(2020),
+                  lastDate: DateTime(2100));
+              if (newDate == Null) return;
+              setState(() {
+                date = newDate!;
+              });
+            },
+            child: Text(
+              'Date  :${date.year} /  ${date.day} / ${date.month}',
+              style: TextStyle(
+                fontSize: 15,
+                color: Colors.black,
               ),
             ),
           ),
-          SizedBox(
-            height: 30,
-          ),
-          Amount(),
-          SizedBox(
-            height: 30,
-          ),
-          Discription(),
-          SizedBox(
-            height: 30,
-          ),
-          ElevatedButton.icon(
-            onPressed: () {
-              setState(() {
-            //    IncomeExp();
-                onAddButtonClicked(context);
-              });
-
-              // var add = add_data(selecteditems!, date, Amount_controller.text,
-              //     Discription_controller.text);
-              // box.add(add);
-              // if (_FieldKey.currentState!.validate()) {
-              // Navigator.of(context).push(MaterialPageRoute(
-              //   builder: (context) {
-              //    return Home();
-
-              //  },
-              // ));
-            },
-            icon: Icon(Icons.add),
-            label: Text('Add'),
-          ),
-        ]),
-      ),
+        ),
+        SizedBox(
+          height: 30,
+        ),
+        Amount(),
+        SizedBox(
+          height: 30,
+        ),
+        Discription(),
+        SizedBox(
+          height: 30,
+        ),
+        ElevatedButton.icon(
+          onPressed: () {
+            Updateall();
+          },
+          icon: Icon(Icons.add),
+          label: Text('Update'),
+        ),
+      ]),
     );
   }
 
@@ -132,14 +132,12 @@ class _AddState extends State<Add> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15),
       child: TextFormField(
-          controller: Description_controller,
-          // validator: (value) {
-          //   return value!.isNotEmpty ? null : 'Invalid field';
-          // },
+          controller: Discription_controller,
+          
           decoration: InputDecoration(
               contentPadding:
                   EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-              labelText: 'Description',
+              labelText: 'Discription',
               labelStyle: TextStyle(
                   fontSize: 17, color: Color.fromARGB(255, 74, 73, 73)),
               enabledBorder: OutlineInputBorder(
@@ -161,9 +159,7 @@ class _AddState extends State<Add> {
       child: TextFormField(
           keyboardType: TextInputType.number,
           controller: Amount_controller,
-          // validator: (value) {
-          //   return value!.isNotEmpty ? null : 'Invalid field';
-          // },
+        
           decoration: InputDecoration(
               contentPadding:
                   EdgeInsets.symmetric(horizontal: 15, vertical: 15),
@@ -261,7 +257,7 @@ class _AddState extends State<Add> {
                       width: 60,
                     ),
                     Text(
-                      'Add Transactions',
+                      'Edit Transaction',
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.w700,
@@ -278,48 +274,20 @@ class _AddState extends State<Add> {
     );
   }
 
-//   Future<void> onAdddButtonClicked(BuildContext context) async {
-//     final _discription = Discription_controller.text.trim().toString();
-//     final _amount = Amount_controller.text.trim().toString();
-//     final _date = date;
-//     final _selecttype = selecteditems;
-//     final _id = DateTime.now().microsecondsSinceEpoch;
-//     if (_discription.isEmpty || _amount.isEmpty || _selecttype!.isEmpty) {
-//       return;
-//     }
+  Future<void> Updateall() async {
+    final ed = selecteditems.toString();
+    final ed1 = DateTime.now();
+    final ed2 = Amount_controller.text.trim();
+    final ed3 = Discription_controller.text.trim();
 
-//     final lst = add_data(_id, _selecttype, _date, _amount, _discription);
-//     //print('$select $date $amount $Discription_controller');
-//     addMoney(lst);
-//     Navigator.of(context).pushReplacement(MaterialPageRoute(
-//       builder: (context) {
-//         return Bottom();
-//       },
-//     ));
-//   }
-// }
-  Future<void> onAddButtonClicked(BuildContext context) async {
-    final _selecttype = selecteditems.toString();
-    final _ddate = DateTime.now();
-    final _amount = Amount_controller.text.trim().toString();
-    final _description = Description_controller.text.trim().toString();
-
-    if (_selecttype.isEmpty || _amount.isEmpty || _description.isEmpty) {
+    if (ed.isEmpty || ed2.isEmpty || ed3.isEmpty) {
       return;
     } else {
-      final llist = add_data(
-        select: _selecttype,
-        dateTime: _ddate,
-        amount: _amount,
-        description: _description,
-      );
-
-      addMoney(llist);
-
+      final updation =
+          add_data(select: ed, dateTime: ed1, amount: ed2, description: ed3);
+      editdata(widget.index, updation);
       Navigator.of(context)
-          .pushReplacement(MaterialPageRoute(builder: (context) {
-        return Bottom();
-      }));
+          .push(MaterialPageRoute(builder: (context) => const Bottom()));
     }
   }
 }

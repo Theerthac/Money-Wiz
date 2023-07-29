@@ -20,7 +20,7 @@ class adddataAdapter extends TypeAdapter<add_data> {
       select: fields[0] as String,
       dateTime: fields[1] as DateTime,
       amount: fields[2] as String,
-      discription: fields[4] as String,
+      description: fields[3] as String,
     );
   }
 
@@ -34,8 +34,8 @@ class adddataAdapter extends TypeAdapter<add_data> {
       ..write(obj.dateTime)
       ..writeByte(2)
       ..write(obj.amount)
-      ..writeByte(4)
-      ..write(obj.discription);
+      ..writeByte(3)
+      ..write(obj.description);
   }
 
   @override

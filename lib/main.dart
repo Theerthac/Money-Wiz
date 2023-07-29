@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/hive_flutter.dart';
+import 'package:hive_flutter/adapters.dart';
+import 'package:project/Screens/Chart.dart';
+import 'package:project/model/add_data.dart';
 import 'Screens/Bottom.dart';
-import 'model/add_data.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,6 +18,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(debugShowCheckedModeBanner: false, home: Bottom());
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Bottom());
   }
 }
