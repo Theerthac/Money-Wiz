@@ -133,7 +133,7 @@ class _TransactionState extends State<Transaction> {
                               Text(
                                 data.amount,
                                 style: TextStyle(
-                                    fontSize: 18,
+                                    fontSize: 17,
                                     fontWeight: FontWeight.w700,
                                     color: data.select == 'Income'
                                         ? Colors.green
