@@ -4,7 +4,6 @@ import 'package:project/Screens/Add.dart';
 import 'package:project/Screens/Home.dart';
 import 'package:project/Screens/Statistics.dart';
 
-
 import 'package:project/Screens/Transaction.dart';
 import 'package:project/Screens/settings.dart';
 

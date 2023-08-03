@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -6,9 +7,9 @@ import 'package:project/Screens/about%20.dart';
 import 'package:project/Screens/privacy.dart';
 import 'package:project/Screens/terms.dart';
 import 'package:project/model/add_data.dart';
+import 'package:project/utility/utility.dart';
 
 class Settings extends StatefulWidget {
-  
   final box = Hive.box<add_data>('data');
   @override
   State<Settings> createState() => _SettingsState();
@@ -115,12 +116,17 @@ class _SettingsState extends State<Settings> {
                       ),
                     ),
                   ),
-                  Text(
-                    '   Reset',
-                    style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.black),
+                  GestureDetector(
+                    onTap: () {
+                      box.clear();
+                    },
+                    child: Text(
+                      '   Reset',
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.black),
+                    ),
                   )
                 ],
               ),

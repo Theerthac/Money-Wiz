@@ -17,10 +17,11 @@ class adddataAdapter extends TypeAdapter<add_data> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return add_data(
-      select: fields[0] as String,
-      dateTime: fields[1] as DateTime,
-      amount: fields[2] as String,
-      description: fields[3] as String,
+      id: fields[0] as int,
+      select: fields[1] as String,
+      dateTime: fields[2] as DateTime,
+      amount: fields[3] as String,
+      description: fields[4] as String,
     );
   }
 

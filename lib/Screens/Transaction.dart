@@ -6,7 +6,6 @@ import 'package:project/Screens/Edit.dart';
 import 'package:project/Screens/Search.dart';
 import 'package:project/model/add_data.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:project/utility/utility.dart';
 import '../DB/DB.dart';
 
 class Transaction extends StatefulWidget {
@@ -108,7 +107,7 @@ class _TransactionState extends State<Transaction> {
                               onPressed: (context) {
                                 setState(() {
                                   deletedata(index);
-                                  IncomeExp();
+                                  // IncomeExp();
                                 });
                               },
                             )
@@ -154,7 +153,7 @@ class _TransactionState extends State<Transaction> {
                                               amount: data.amount,
                                               discription: data.description)));
 
-                                      IncomeExp();
+                                      // IncomeExp();
                                     });
                                   },
                                   icon: Icon(

@@ -278,26 +278,6 @@ class _AddState extends State<Add> {
     );
   }
 
-//   Future<void> onAdddButtonClicked(BuildContext context) async {
-//     final _discription = Discription_controller.text.trim().toString();
-//     final _amount = Amount_controller.text.trim().toString();
-//     final _date = date;
-//     final _selecttype = selecteditems;
-//     final _id = DateTime.now().microsecondsSinceEpoch;
-//     if (_discription.isEmpty || _amount.isEmpty || _selecttype!.isEmpty) {
-//       return;
-//     }
-
-//     final lst = add_data(_id, _selecttype, _date, _amount, _discription);
-//     //print('$select $date $amount $Discription_controller');
-//     addMoney(lst);
-//     Navigator.of(context).pushReplacement(MaterialPageRoute(
-//       builder: (context) {
-//         return Bottom();
-//       },
-//     ));
-//   }
-// }
   Future<void> onAddButtonClicked(BuildContext context) async {
     final _selecttype = selecteditems.toString();
     final _ddate = DateTime.now();

@@ -42,7 +42,7 @@ dependencies:
   flutter_slidable: ^3.0.0
   anim_search_bar: ^2.0.3
   syncfusion_flutter_charts: ^22.2.5
-
+  shared_preferences: ^2.2.0
 
 
 dev_dependencies:
@@ -71,8 +71,8 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-    # - Assets\credit-removebg-preview.png
+  assets:
+    - Assets/Money.jpg
   
 
   # An image asset can refer to one or more resolution-specific "variants", see

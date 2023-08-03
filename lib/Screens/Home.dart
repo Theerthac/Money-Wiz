@@ -99,7 +99,7 @@ class _HomeState extends State<Home> {
                 child: Row(
                   children: [
                     Text(
-                      '\$ ${IncomeExp().total()}',
+                      '\$ ${total()}',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 23,
@@ -166,14 +166,14 @@ class _HomeState extends State<Home> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      '\$ ${IncomeExp().income()}',
+                      '\$ ${income()}',
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
                         fontSize: 18,
                       ),
                     ),
                     Text(
-                      '\$ ${IncomeExp().expense()}',
+                      '\$ ${expense()}',
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
                         fontSize: 18,
