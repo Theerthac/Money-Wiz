@@ -52,7 +52,7 @@ class _SplashScreenState extends State<SplashScreen> {
    
     final sharedPrefs = await SharedPreferences.getInstance();
     final userLoggedIn = sharedPrefs.getBool(Save_Key);
-    
+     
     if (userLoggedIn == null || userLoggedIn == false) {
       gotologin();
     } else {
