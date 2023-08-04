@@ -45,7 +45,7 @@ class _SplashScreenState extends State<SplashScreen> {
   Future<void> gotologin() async {
     await Future.delayed(const Duration(seconds: 5));
     Navigator.of(context)
-        .pushReplacement(MaterialPageRoute(builder: (ctx) => const Login()));
+        .pushReplacement(MaterialPageRoute(builder: (ctx) =>  Login()));
   }
 
   Future<void> checkUserLoggedIn() async {
@@ -57,7 +57,7 @@ class _SplashScreenState extends State<SplashScreen> {
       gotologin();
     } else {
       Navigator.of(context).pushReplacement(MaterialPageRoute(
-        builder: (ctx) => Bottom(),
+        builder: (ctx) => Bottom(username: "Welcome back",),
       ));
     }
   }

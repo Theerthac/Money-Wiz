@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:project/Screens/Bottom.dart';
@@ -9,15 +8,15 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import '../DB/DB.dart';
 
 class Transaction extends StatefulWidget {
-  const Transaction({super.key});
+  String username;
+   Transaction({super.key , required this.username});
 
   @override
   State<Transaction> createState() => _TransactionState();
 }
 
 class _TransactionState extends State<Transaction> {
-   final box = Hive.box<add_data>('data');
-
+  final box = Hive.box<add_data>('data');
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +49,7 @@ class _TransactionState extends State<Transaction> {
                           onTap: () {
                             Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) {
-                                return Bottom();
+                                return Bottom(username: widget.username,);
                               },
                             ));
                           },
@@ -73,14 +72,11 @@ class _TransactionState extends State<Transaction> {
         SizedBox(
           height: 20,
         ),
-
         IconButton(
             onPressed: () {
               showSearch(context: context, delegate: search());
             },
             icon: const Icon(Icons.search)),
-
-
         Expanded(
           child: ValueListenableBuilder(
             valueListenable: addListNotifier,
@@ -146,6 +142,7 @@ class _TransactionState extends State<Transaction> {
                                     setState(() {
                                       Navigator.of(context).push(MaterialPageRoute(
                                           builder: (context) => Edit_Data(
+                                            username: widget.username,
                                               index: index,
                                               select: data.select,
                                               date:

@@ -3,6 +3,8 @@ import '../DB/DB.dart';
 import '../model/add_data.dart';
 
 class search extends SearchDelegate {
+  
+
   @override
   List<Widget>? buildActions(BuildContext context) {
     return <Widget>[
@@ -103,7 +105,8 @@ class search extends SearchDelegate {
                     if (data.select
                             .toLowerCase()
                             .contains(query.toLowerCase()) ||
-                        data.amount.toString()
+                        data.amount
+                            .toString()
                             .toLowerCase()
                             .contains(query.toLowerCase()) ||
                         data.description

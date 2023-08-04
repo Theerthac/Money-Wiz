@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -10,6 +9,9 @@ import 'package:project/model/add_data.dart';
 import 'package:project/utility/utility.dart';
 
 class Settings extends StatefulWidget {
+  String username;
+    Settings({super.key, required this.username});
+
   final box = Hive.box<add_data>('data');
   @override
   State<Settings> createState() => _SettingsState();
@@ -46,7 +48,9 @@ class _SettingsState extends State<Settings> {
                           onTap: () {
                             Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) {
-                                return Bottom();
+                                return Bottom(
+                                  username: widget.username,
+                                );
                               },
                             ));
                           },
@@ -86,7 +90,7 @@ class _SettingsState extends State<Settings> {
                     onTap: () {
                       Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) {
-                          return About();
+                          return About(username: widget.username,);
                         },
                       ));
                     },
@@ -169,7 +173,7 @@ class _SettingsState extends State<Settings> {
                     onTap: () {
                       Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) {
-                          return Term();
+                          return Term(username: widget.username,);
                         },
                       ));
                     },
@@ -200,7 +204,7 @@ class _SettingsState extends State<Settings> {
                     onTap: () {
                       Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) {
-                          return Privacy();
+                          return Privacy(username: widget.username,);
                         },
                       ));
                     },

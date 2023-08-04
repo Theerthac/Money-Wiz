@@ -6,7 +6,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 final _usernameController = TextEditingController();
 
 class Login extends StatefulWidget {
-  const Login({super.key});
+ 
+   Login({super.key, });
 
   @override
   State<Login> createState() => _LoginState();
@@ -97,13 +98,13 @@ class _LoginState extends State<Login> {
       onPressed: () {
         if (_formkey.currentState!.validate()) {
           checkLogin(context);
-          Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => Bottom(),
-          ));
+          // Navigator.of(context).push(MaterialPageRoute(
+          //   builder: (context) => Bottom( ),
+          // ));
         }
-        //  else {
-        //   print('empty value');
-        // }
+         else {
+          print('empty value');
+        }
       },
       child: const SizedBox(
           width: double.infinity,
@@ -131,7 +132,9 @@ class _LoginState extends State<Login> {
     Navigator.pushReplacement(
         ctx,
         MaterialPageRoute(
-          builder: (ctx1) => Bottom(),
+          builder: (ctx1) => Bottom(
+            username: username,
+          ),
         ));
   }
 }

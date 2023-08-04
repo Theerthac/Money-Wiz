@@ -1,9 +1,12 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:project/Screens/settings.dart';
 
 class Privacy extends StatefulWidget {
-  const Privacy({super.key});
+  String username;
+   Privacy({super.key, required this.username});
 
   @override
   State<Privacy> createState() => _PrivacyState();
@@ -13,66 +16,66 @@ class _PrivacyState extends State<Privacy> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(child: Stack(
+      body: SafeArea(
+          child: Stack(
         children: [
           Column(
             children: [
-                   Container(
-            width: double.infinity,
-            height: 140,
-            decoration: BoxDecoration(
-                color: Color(0xFFFDC603),
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(30),
-                  bottomRight: Radius.circular(30),
-                )),
-            child: Column(
-              children: [
-                SizedBox(
-                  height: 40,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 30),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      GestureDetector(
-                          onTap: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) {
-                                return Settings();
+              Container(
+                width: double.infinity,
+                height: 140,
+                decoration: BoxDecoration(
+                    color: Color(0xFFFDC603),
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(30),
+                      bottomRight: Radius.circular(30),
+                    )),
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: 40,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 30),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          GestureDetector(
+                              onTap: () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) {
+                                    return Settings(username: widget.username);
+                                  },
+                                ));
                               },
-                            ));
-                          },
-                          child: Icon(
-                            Icons.arrow_back,
-                            color: Colors.black,
-                          )),
-                      Text(
-                        '    Privacy Policy',
-                        style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.black),
-                      )
-                    ],
-                  ),
+                              child: Icon(
+                                Icons.arrow_back,
+                                color: Colors.black,
+                              )),
+                          Text(
+                            '    Privacy Policy',
+                            style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.black),
+                          )
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
-          ),
-
+              ),
             ],
           ),
-        Padding(
-          padding: const EdgeInsets.only(top: 150),
-          child: ListView(
-            children: const [
-              Padding(
-                padding: EdgeInsets.all(15.0),
-                child: Text(
-                    """We are committed to protecting your privacy. This privacy policy sets out how we use and protect any information that you give us when you use our money management mobile app.
+          Padding(
+            padding: const EdgeInsets.only(top: 150),
+            child: ListView(
+              children: const [
+                Padding(
+                  padding: EdgeInsets.all(15.0),
+                  child: Text(
+                      """We are committed to protecting your privacy. This privacy policy sets out how we use and protect any information that you give us when you use our money management mobile app.
               
               We may collect the following information:
               
@@ -93,16 +96,14 @@ class _PrivacyState extends State<Privacy> {
               If you have any questions about this privacy policy or how we use your information, please contact us.
                         
               """,
-                    style: TextStyle(fontSize: 15, color: Color.fromARGB(221, 7, 7, 7))),
-              ),
-            ],
+                      style: TextStyle(
+                          fontSize: 15, color: Color.fromARGB(221, 7, 7, 7))),
+                ),
+              ],
+            ),
           ),
-        ),
         ],
-
       )),
-
-      
     );
   }
 }

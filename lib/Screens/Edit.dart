@@ -4,13 +4,16 @@ import '../DB/DB.dart';
 import '../model/add_data.dart';
 
 class Edit_Data extends StatefulWidget {
+  String username;
   var select;
   var date;
   var amount;
   var discription;
-   late int index;
+  late int index;
 
   Edit_Data({
+    super.key,
+    required this.username,
     required this.index,
     required this.select,
     required this.date,
@@ -30,15 +33,13 @@ class _Edit_DataState extends State<Edit_Data> {
   final TextEditingController Amount_controller = TextEditingController();
   final TextEditingController Date_controller = TextEditingController();
   final TextEditingController Select_controller = TextEditingController();
- 
- 
+
   @override
   void initState() {
     super.initState();
-  
-  final Amount_controller = TextEditingController(text: widget.select);
-  final Discription_controller = TextEditingController(text: widget.select);
 
+    final Amount_controller = TextEditingController(text: widget.select);
+    final Discription_controller = TextEditingController(text: widget.select);
   }
 
   final List<String> _item = ['Income', 'Expense'];
@@ -132,7 +133,6 @@ class _Edit_DataState extends State<Edit_Data> {
       padding: const EdgeInsets.symmetric(horizontal: 15),
       child: TextFormField(
           controller: Discription_controller,
-          
           decoration: InputDecoration(
               contentPadding:
                   EdgeInsets.symmetric(horizontal: 15, vertical: 15),
@@ -158,7 +158,6 @@ class _Edit_DataState extends State<Edit_Data> {
       child: TextFormField(
           keyboardType: TextInputType.number,
           controller: Amount_controller,
-        
           decoration: InputDecoration(
               contentPadding:
                   EdgeInsets.symmetric(horizontal: 15, vertical: 15),
@@ -276,7 +275,7 @@ class _Edit_DataState extends State<Edit_Data> {
   Future<void> Updateall() async {
     final ed = selecteditems.toString();
     final ed1 = DateTime.now();
-    final ed2 = double.parse(Amount_controller.text );
+    final ed2 = double.parse(Amount_controller.text);
     final ed3 = Discription_controller.text.trim();
 
     if (ed.isEmpty || ed2 == null || ed3.isEmpty) {
@@ -285,8 +284,10 @@ class _Edit_DataState extends State<Edit_Data> {
       final updation =
           add_data(select: ed, dateTime: ed1, amount: ed2, description: ed3);
       editdata(widget.index, updation);
-      Navigator.of(context)
-          .push(MaterialPageRoute(builder: (context) => const Bottom()));
+      Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => Bottom(
+                username: widget.username,
+              )));
     }
   }
 }

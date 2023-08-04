@@ -5,7 +5,8 @@ import 'package:project/model/add_data.dart';
 import 'package:project/utility/utility.dart';
 
 class Statistics extends StatefulWidget {
-  const Statistics({super.key});
+  String username;
+   Statistics({super.key, required this.username});
 
   @override
   State<Statistics> createState() => _StatisticsState();
@@ -28,7 +29,7 @@ class _StatisticsState extends State<Statistics> {
           builder: (context, dynamic value, Widget? child) {
             a = t[value];
             a = a.reversed.toList();
-            
+
             return custom();
           },
         ),
@@ -103,6 +104,7 @@ class _StatisticsState extends State<Statistics> {
                 height: 400,
                 child: Chart(
                   indexx: index_color,
+                  username: widget.username,
                 ),
               )
             ],

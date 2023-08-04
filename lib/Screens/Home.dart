@@ -6,8 +6,8 @@ import 'package:project/model/add_data.dart';
 import 'package:project/utility/utility.dart';
 
 class Home extends StatefulWidget {
-  // String username;
-  Home({super.key ,});
+   String username;
+  Home({super.key,  required this.username});
 
   @override
   State<Home> createState() => _HomeState();
@@ -36,8 +36,8 @@ class _HomeState extends State<Home> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Welcome',
-                    // 'Hey ${widget.username}',
+                    'Hey ${widget.username}',
+                  
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 20,
@@ -204,7 +204,7 @@ class _HomeState extends State<Home> {
                         onTap: () {
                           Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) {
-                              return Transaction();
+                              return Transaction(username: widget.username,);
                             },
                           ));
                         },

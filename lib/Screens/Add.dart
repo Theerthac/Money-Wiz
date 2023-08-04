@@ -6,21 +6,19 @@ import 'package:project/model/add_data.dart';
 import '../DB/DB.dart';
 
 class Add extends StatefulWidget {
-  const Add({super.key});
+  String username;
+   Add({super.key ,required this.username});
 
   @override
   State<Add> createState() => _AddState();
 }
 
 class _AddState extends State<Add> {
- 
-
   DateTime date = DateTime.now();
   String? selecteditems;
 
   final TextEditingController Description_controller = TextEditingController();
   final TextEditingController Amount_controller = TextEditingController();
-
 
   final List<String> _item = ['Income', 'Expense'];
   GlobalKey<FormState> _FieldKey = GlobalKey<FormState>();
@@ -103,7 +101,6 @@ class _AddState extends State<Add> {
           ElevatedButton.icon(
             onPressed: () {
               setState(() {
-               
                 onAddButtonClicked(context);
               });
             },
@@ -282,7 +279,9 @@ class _AddState extends State<Add> {
 
       Navigator.of(context)
           .pushReplacement(MaterialPageRoute(builder: (context) {
-        return Bottom();
+        return Bottom(
+          username: widget.username,
+        );
       }));
     }
   }

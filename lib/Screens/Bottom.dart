@@ -3,13 +3,13 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:project/Screens/Add.dart';
 import 'package:project/Screens/Home.dart';
 import 'package:project/Screens/Statistics.dart';
-
 import 'package:project/Screens/Transaction.dart';
 import 'package:project/Screens/settings.dart';
 
 class Bottom extends StatefulWidget {
+  String username;
   
-  const Bottom({super.key});
+  Bottom({ super.key, required this.username});
 
   @override
   State<Bottom> createState() => _BottomState();
@@ -17,7 +17,9 @@ class Bottom extends StatefulWidget {
 
 class _BottomState extends State<Bottom> {
   int index_color = 0;
-  List Screens = [Home(), Transaction(), Statistics(), Settings()];
+ 
+ late List Screens =  [Home(username:widget.username,), Transaction(username: widget.username), 
+  Statistics(username: widget.username,), Settings(username: widget.username,)];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,7 +27,9 @@ class _BottomState extends State<Bottom> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => Add(),
+            builder: (context) => Add(
+              username: widget.username,
+            ),
           ));
         },
         child: Icon(Icons.add),
