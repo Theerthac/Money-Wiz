@@ -4,13 +4,14 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:project/Screens/Bottom.dart';
 import 'package:project/Screens/about%20.dart';
 import 'package:project/Screens/privacy.dart';
+import 'package:project/Screens/reset.dart';
 import 'package:project/Screens/terms.dart';
 import 'package:project/model/add_data.dart';
 import 'package:project/utility/utility.dart';
 
 class Settings extends StatefulWidget {
   String username;
-    Settings({super.key, required this.username});
+  Settings({super.key, required this.username});
 
   final box = Hive.box<add_data>('data');
   @override
@@ -90,7 +91,9 @@ class _SettingsState extends State<Settings> {
                     onTap: () {
                       Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) {
-                          return About(username: widget.username,);
+                          return About(
+                            username: widget.username,
+                          );
                         },
                       ));
                     },
@@ -122,7 +125,7 @@ class _SettingsState extends State<Settings> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      box.clear();
+                      resetApp(context);
                     },
                     child: Text(
                       '   Reset',
@@ -131,28 +134,6 @@ class _SettingsState extends State<Settings> {
                           fontWeight: FontWeight.w600,
                           color: Colors.black),
                     ),
-                  )
-                ],
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 20),
-                    child: Icon(
-                      Icons.share,
-                      size: 30,
-                      color: Colors.black,
-                    ),
-                  ),
-                  Text(
-                    '   Share',
-                    style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.black),
                   )
                 ],
               ),
@@ -173,7 +154,9 @@ class _SettingsState extends State<Settings> {
                     onTap: () {
                       Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) {
-                          return Term(username: widget.username,);
+                          return Term(
+                            username: widget.username,
+                          );
                         },
                       ));
                     },
@@ -204,7 +187,9 @@ class _SettingsState extends State<Settings> {
                     onTap: () {
                       Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) {
-                          return Privacy(username: widget.username,);
+                          return Privacy(
+                            username: widget.username,
+                          );
                         },
                       ));
                     },
