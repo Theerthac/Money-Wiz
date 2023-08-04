@@ -20,7 +20,7 @@ class adddataAdapter extends TypeAdapter<add_data> {
       id: fields[0] as int,
       select: fields[1] as String,
       dateTime: fields[2] as DateTime,
-      amount: fields[3] as String,
+      amount: fields[3] as double,
       description: fields[4] as String,
     );
   }

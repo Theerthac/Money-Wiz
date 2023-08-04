@@ -130,7 +130,7 @@ class _TransactionState extends State<Transaction> {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               Text(
-                                data.amount,
+                                data.amount.toString(),
                                 style: TextStyle(
                                     fontSize: 17,
                                     fontWeight: FontWeight.w700,

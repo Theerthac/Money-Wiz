@@ -8,6 +8,7 @@ import 'package:project/Screens/Transaction.dart';
 import 'package:project/Screens/settings.dart';
 
 class Bottom extends StatefulWidget {
+  
   const Bottom({super.key});
 
   @override

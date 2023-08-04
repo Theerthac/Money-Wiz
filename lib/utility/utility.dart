@@ -1,41 +1,45 @@
 import 'package:hive/hive.dart';
 import 'package:project/model/add_data.dart';
 
-// class IncomeExp {
-int totals = 0;
+
+num totals = 0;
 final box = Hive.box<add_data>('data');
-int total() {
+num total() {
   var history2 = box.values.toList();
 
   List a = [0, 0];
   for (var i = 0; i < history2.length; i++) {
     a.add(history2[i].select == 'Income'
-        ? int.parse(history2[i].amount)
-        : int.parse(history2[i].amount) * -1);
+        ? totals = double.parse(history2[i].amount.toString())
+        : totals = double.parse(history2[i].amount.toString()) * -1);
   }
-  totals = a.reduce((value, element) => value + element);
+
+
+  totals =  a.reduce((value, element) => value + element);
   return totals;
 }
 
-int income() {
+num income() {
   final box = Hive.box<add_data>('data');
   var history2 = box.values.toList();
   List a = [0, 0];
   for (var i = 0; i < history2.length; i++) {
-    a.add(history2[i].select == 'Income' ? int.parse(history2[i].amount) : 0);
+    a.add(history2[i].select == 'Income'
+        ? double.parse(history2[i].amount.toString())
+        : 0);
   }
   totals = a.reduce((value, element) => value + element);
   return totals;
 }
 
-int expense() {
+num expense() {
   final box = Hive.box<add_data>('data');
   var history2 = box.values.toList();
   List a = [0, 0];
   for (var i = 0; i < history2.length; i++) {
     a.add(history2[i].select == 'Income'
         ? 0
-        : int.parse(history2[i].amount) * -1);
+        : double.parse(history2[i].amount.toString()) * -1);
   }
   totals = a.reduce((value, element) => value + element);
   return totals;
@@ -44,7 +48,7 @@ int expense() {
 List<add_data> today() {
   List<add_data> a = [];
   var history2 = box.values.toList();
-  DateTime date =  DateTime.now();
+  DateTime date = DateTime.now();
   for (var i = 0; i < history2.length; i++) {
     if (history2[i].dateTime.day == date.day) {
       a.add(history2[i]);
@@ -55,9 +59,9 @@ List<add_data> today() {
 
 List<add_data> week() {
   List<add_data> a = [];
- DateTime date =  DateTime.now();
+  DateTime date = DateTime.now();
   var history2 = box.values.toList();
-  
+
   for (var i = 0; i < history2.length; i++) {
     if (date.day - 7 <= history2[i].dateTime.day &&
         history2[i].dateTime.day <= date.day) {
@@ -70,7 +74,7 @@ List<add_data> week() {
 List<add_data> month() {
   List<add_data> a = [];
   var history2 = box.values.toList();
-  DateTime date =  DateTime.now();
+  DateTime date = DateTime.now();
   for (var i = 0; i < history2.length; i++) {
     if (history2[i].dateTime.month == date.month) {
       a.add(history2[i]);
@@ -79,20 +83,18 @@ List<add_data> month() {
   return a;
 }
 
-
-
-int total_chart(List<add_data> history2) {
+num total_chart(List<add_data> history2) {
   List a = [0, 0];
   for (var i = 0; i < history2.length; i++) {
     a.add(history2[i].select == 'Income'
-        ? int.parse(history2[i].amount)
-        : int.parse(history2[i].amount) * -1);
+        ? double.parse(history2[i].amount.toString())
+        : double.parse(history2[i].amount.toString()) * -1);
   }
   totals = a.reduce((value, element) => value + element);
   return totals;
 }
 
-List time(List<add_data> history2, bool hour ) {
+List time(List<add_data> history2, bool hour) {
   List<add_data> a = [];
   List total = [0, 0];
   int counter = 0;
@@ -117,21 +119,21 @@ List time(List<add_data> history2, bool hour ) {
   return total;
 }
 
-int calculateIncome(List<add_data> chartdata) {
-  int income = 0;
+double calculateIncome(List<add_data> chartdata) {
+  double income = 0;
   for (var transaction in chartdata) {
     if (transaction.select == 'Income') {
-      income += int.parse(transaction.amount);
+      income += double.parse(transaction.amount.toString());
     }
   }
   return income;
 }
 
-int calculateExpense(List<add_data> chartdata) {
-  int expense = 0;
+double calculateExpense(List<add_data> chartdata) {
+  double expense = 0;
   for (var transaction in chartdata) {
     if (transaction.select != 'Income') {
-      expense += int.parse(transaction.amount);
+      expense += double.parse(transaction.amount.toString());
     }
   }
   return expense;

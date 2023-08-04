@@ -3,7 +3,6 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:project/Screens/Bottom.dart';
 import 'package:project/model/add_data.dart';
 
-
 import '../DB/DB.dart';
 
 class Add extends StatefulWidget {
@@ -14,15 +13,14 @@ class Add extends StatefulWidget {
 }
 
 class _AddState extends State<Add> {
-  //final box = Hive.box<add_data>('data');
+ 
 
   DateTime date = DateTime.now();
   String? selecteditems;
 
   final TextEditingController Description_controller = TextEditingController();
   final TextEditingController Amount_controller = TextEditingController();
-  // final TextEditingController Date_controller = TextEditingController();
-  // final TextEditingController Select_controller = TextEditingController();
+
 
   final List<String> _item = ['Income', 'Expense'];
   GlobalKey<FormState> _FieldKey = GlobalKey<FormState>();
@@ -105,20 +103,9 @@ class _AddState extends State<Add> {
           ElevatedButton.icon(
             onPressed: () {
               setState(() {
-            //    IncomeExp();
+               
                 onAddButtonClicked(context);
               });
-
-              // var add = add_data(selecteditems!, date, Amount_controller.text,
-              //     Discription_controller.text);
-              // box.add(add);
-              // if (_FieldKey.currentState!.validate()) {
-              // Navigator.of(context).push(MaterialPageRoute(
-              //   builder: (context) {
-              //    return Home();
-
-              //  },
-              // ));
             },
             icon: Icon(Icons.add),
             label: Text('Add'),
@@ -133,9 +120,6 @@ class _AddState extends State<Add> {
       padding: const EdgeInsets.symmetric(horizontal: 15),
       child: TextFormField(
           controller: Description_controller,
-          // validator: (value) {
-          //   return value!.isNotEmpty ? null : 'Invalid field';
-          // },
           decoration: InputDecoration(
               contentPadding:
                   EdgeInsets.symmetric(horizontal: 15, vertical: 15),
@@ -281,10 +265,10 @@ class _AddState extends State<Add> {
   Future<void> onAddButtonClicked(BuildContext context) async {
     final _selecttype = selecteditems.toString();
     final _ddate = DateTime.now();
-    final _amount = Amount_controller.text.trim().toString();
+    final _amount = double.parse(Amount_controller.text);
     final _description = Description_controller.text.trim().toString();
 
-    if (_selecttype.isEmpty || _amount.isEmpty || _description.isEmpty) {
+    if (_selecttype.isEmpty || _amount == null || _description.isEmpty) {
       return;
     } else {
       final llist = add_data(

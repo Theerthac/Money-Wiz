@@ -150,24 +150,24 @@ class _ChartState extends State<Chart> {
 
   @override
   Widget build(BuildContext context) {
-    int income = calculateIncome(chartdata);
-    int expense = calculateExpense(chartdata);
-   
+    double income = calculateIncome(chartdata);
+    double expense = calculateExpense(chartdata);
+
     return SfCircularChart(
       series: <CircularSeries>[
         DoughnutSeries<Datas, String>(
-          dataSource: <Datas>[
-            Datas('Income', income),
-            Datas('Expense', expense),
-          ],
-          pointColorMapper: (Datas  data, _) =>
-            data.expandincome == 'Income' ? Color.fromARGB(255, 3, 108, 21) : Color(0xFFED5449),
-          xValueMapper: (Datas data, _) => data.expandincome,
-          yValueMapper: (Datas data,_) => data.year,
-          dataLabelSettings: DataLabelSettings(
-            isVisible: true,
-          )
-        )
+            dataSource: <Datas>[
+              Datas('Income', income),
+              Datas('Expense', expense),
+            ],
+            pointColorMapper: (Datas data, _) => data.expandincome == 'Income'
+                ? Color.fromARGB(255, 3, 108, 21)
+                : Color(0xFFED5449),
+            xValueMapper: (Datas data, _) => data.expandincome,
+            yValueMapper: (Datas data, _) => data.year,
+            dataLabelSettings: DataLabelSettings(
+              isVisible: true,
+            ))
       ],
     );
   }
@@ -176,6 +176,6 @@ class _ChartState extends State<Chart> {
 class Datas {
   Datas(this.expandincome, this.year);
 
-  final int year;
+  final double year;
   final String expandincome;
 }

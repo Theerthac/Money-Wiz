@@ -42,6 +42,7 @@ class search extends SearchDelegate {
                             .toLowerCase()
                             .contains(query.toLowerCase()) ||
                         data.amount
+                            .toString()
                             .toLowerCase()
                             .contains(query.toLowerCase()) ||
                         data.description
@@ -63,7 +64,7 @@ class search extends SearchDelegate {
                             ),
                           ),
                           trailing: Text(
-                            data.amount,
+                            data.amount.toString(),
                             style: TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.w700,
@@ -89,21 +90,26 @@ class search extends SearchDelegate {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    return ValueListenableBuilder(valueListenable: addListNotifier, 
-    builder:  (BuildContext ctx, List<add_data> AddList, Widget? child) {
+    return ValueListenableBuilder(
+        valueListenable: addListNotifier,
+        builder: (BuildContext ctx, List<add_data> AddList, Widget? child) {
           return (AddList.isEmpty)
               ? const Center(
                   child: Text('No data found'),
                 )
-                :ListView.separated(
-                  itemBuilder:(context, index) {
-                    final data =  AddList.toList()[index];
-                      if(data.select.toLowerCase().contains(query.toLowerCase()) 
-                || data.amount.toLowerCase().contains(query.toLowerCase())
-                || data.description.toLowerCase().contains(query.toLowerCase())
-
-                ){
-                  final data = AddList[index];
+              : ListView.separated(
+                  itemBuilder: (context, index) {
+                    final data = AddList.toList()[index];
+                    if (data.select
+                            .toLowerCase()
+                            .contains(query.toLowerCase()) ||
+                        data.amount.toString()
+                            .toLowerCase()
+                            .contains(query.toLowerCase()) ||
+                        data.description
+                            .toLowerCase()
+                            .contains(query.toLowerCase())) {
+                      final data = AddList[index];
                       return ListTile(
                           title: Text(
                             data.description,
@@ -119,7 +125,7 @@ class search extends SearchDelegate {
                             ),
                           ),
                           trailing: Text(
-                            data.amount,
+                            data.amount.toString(),
                             style: TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.w700,
@@ -127,17 +133,14 @@ class search extends SearchDelegate {
                                     ? Colors.green
                                     : Colors.red),
                           ));
-
-                }else{
-                  return const SizedBox();
-                }
-                  }, 
-                  separatorBuilder:(ctx, index) {
+                    } else {
+                      return const SizedBox();
+                    }
+                  },
+                  separatorBuilder: (ctx, index) {
                     return Divider();
-                  }, 
-                  itemCount: AddList.length
-                  );
-   }
-    );
+                  },
+                  itemCount: AddList.length);
+        });
   }
 }

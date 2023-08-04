@@ -5,23 +5,17 @@ import 'package:project/Screens/Transaction.dart';
 import 'package:project/model/add_data.dart';
 import 'package:project/utility/utility.dart';
 
-
-
 class Home extends StatefulWidget {
-  const Home({super.key});
+  // String username;
+  Home({super.key ,});
 
   @override
   State<Home> createState() => _HomeState();
 }
-  
-class _HomeState extends State<Home> {
-  // var history;
-  
-  //final box = Hive.box<add_data>('data');
 
+class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
-   
     getAlldata();
     return Scaffold(
         body: SafeArea(
@@ -42,7 +36,8 @@ class _HomeState extends State<Home> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    '  Hy Theertha,',
+                    'Welcome',
+                    // 'Hey ${widget.username}',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 20,
@@ -253,7 +248,7 @@ class _HomeState extends State<Home> {
                             ),
                           ),
                           trailing: Text(
-                            data.amount,
+                            data.amount.toString(),
                             style: TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.w700,

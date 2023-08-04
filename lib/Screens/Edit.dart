@@ -35,8 +35,7 @@ class _Edit_DataState extends State<Edit_Data> {
   @override
   void initState() {
     super.initState();
-  //final Select_controller = TextEditingController(text: widget.select);
-  //final  Date_controller = TextEditingController(text: widget.select);
+  
   final Amount_controller = TextEditingController(text: widget.select);
   final Discription_controller = TextEditingController(text: widget.select);
 
@@ -277,10 +276,10 @@ class _Edit_DataState extends State<Edit_Data> {
   Future<void> Updateall() async {
     final ed = selecteditems.toString();
     final ed1 = DateTime.now();
-    final ed2 = Amount_controller.text.trim();
+    final ed2 = double.parse(Amount_controller.text );
     final ed3 = Discription_controller.text.trim();
 
-    if (ed.isEmpty || ed2.isEmpty || ed3.isEmpty) {
+    if (ed.isEmpty || ed2 == null || ed3.isEmpty) {
       return;
     } else {
       final updation =
