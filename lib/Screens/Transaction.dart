@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:project/Screens/Bottom.dart';
@@ -103,7 +105,7 @@ class _TransactionState extends State<Transaction> {
                               onPressed: (context) {
                                 setState(() {
                                   deletedata(index);
-                                  // IncomeExp();
+                                
                                 });
                               },
                             )
@@ -150,7 +152,7 @@ class _TransactionState extends State<Transaction> {
                                               amount: data.amount,
                                               discription: data.description)));
 
-                                      // IncomeExp();
+                                      
                                     });
                                   },
                                   icon: Icon(

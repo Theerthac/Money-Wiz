@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:project/DB/DB.dart';
@@ -16,6 +18,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
     getAlldata();
     return Scaffold(
         body: SafeArea(
@@ -23,8 +26,8 @@ class _HomeState extends State<Home> {
       Column(
         children: [
           Container(
-            width: double.infinity,
-            height: 240,
+            width: size.width,
+            height: size.height * 0.35,
             decoration: BoxDecoration(
                 color: Color(0xFFFDC603),
                 borderRadius: BorderRadius.only(
@@ -50,11 +53,11 @@ class _HomeState extends State<Home> {
         ],
       ),
       Positioned(
-        top: 140,
-        left: 28,
+        top: 120,
+        left: 20,
         child: Container(
-          height: 170,
-          width: 320,
+          height: size.height*0.25,
+          width: size.width * 0.9,
           decoration: BoxDecoration(
             boxShadow: [
               BoxShadow(
@@ -107,7 +110,7 @@ class _HomeState extends State<Home> {
                 height: 25,
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 7),
+                padding: const EdgeInsets.only(left: 7,top: 25),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [

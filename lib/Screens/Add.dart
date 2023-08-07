@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:project/Screens/Bottom.dart';
@@ -142,9 +144,7 @@ class _AddState extends State<Add> {
       child: TextFormField(
           keyboardType: TextInputType.number,
           controller: Amount_controller,
-          // validator: (value) {
-          //   return value!.isNotEmpty ? null : 'Invalid field';
-          // },
+         
           decoration: InputDecoration(
               contentPadding:
                   EdgeInsets.symmetric(horizontal: 15, vertical: 15),

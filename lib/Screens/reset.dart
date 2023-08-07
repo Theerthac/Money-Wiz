@@ -1,5 +1,5 @@
 
-  import 'package:flutter/cupertino.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:project/Screens/login.dart';
@@ -26,9 +26,7 @@ resetApp(BuildContext context) {
                     box.clear();
                   clearSharedPreferences(ctx);
                     
-                    // AddListNotifier.notifyListeners();
-
-                    // ignore: use_build_context_synchronously
+                  
                     Navigator.of(context).pushReplacement(
                       MaterialPageRoute(
                         builder: (context) =>  Login(),

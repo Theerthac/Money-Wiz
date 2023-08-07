@@ -17,12 +17,16 @@ class _LoginState extends State<Login> {
   final _formkey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
     return Container(
+      width: size.width*0.06,
+      height: size.height*0.5,
       decoration: const BoxDecoration(
           gradient: LinearGradient(
         colors: [Color(0xFFFDC603), Color(0xFFFCFF5B)],
       )),
       child: Scaffold(
+        
         backgroundColor: Colors.transparent,
         body: _page(),
       ),
@@ -30,6 +34,7 @@ class _LoginState extends State<Login> {
   }
 
   Widget _page() {
+  
     return Form(
       key: _formkey,
       child: Padding(
@@ -98,9 +103,7 @@ class _LoginState extends State<Login> {
       onPressed: () {
         if (_formkey.currentState!.validate()) {
           checkLogin(context);
-          // Navigator.of(context).push(MaterialPageRoute(
-          //   builder: (context) => Bottom( ),
-          // ));
+         
         }
          else {
           print('empty value');
@@ -108,7 +111,7 @@ class _LoginState extends State<Login> {
       },
       child: const SizedBox(
           width: double.infinity,
-          //height: 10,
+          
           child: Text(
             "Sign in",
             textAlign: TextAlign.center,
