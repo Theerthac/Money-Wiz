@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:project/Screens/Bottom.dart';
+import 'package:project/Screens/bottomscreen.dart';
 import 'package:project/main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-final _usernameController = TextEditingController();
+
 
 class Login extends StatefulWidget {
  
@@ -14,6 +14,9 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+
+  final _usernameController = TextEditingController();
+  
   final _formkey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {

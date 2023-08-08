@@ -1,5 +1,8 @@
+
+
 import 'package:hive/hive.dart';
 part 'add_data.g.dart';
+
 
 @HiveType(typeId: 1)
 class add_data extends HiveObject {

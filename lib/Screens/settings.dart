@@ -1,10 +1,9 @@
 // ignore_for_file: must_be_immutable
-
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:project/Screens/Bottom.dart';
 import 'package:project/Screens/about%20.dart';
+import 'package:project/Screens/bottomscreen.dart';
 import 'package:project/Screens/privacy.dart';
 import 'package:project/Screens/reset.dart';
 import 'package:project/Screens/terms.dart';

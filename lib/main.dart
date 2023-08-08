@@ -1,9 +1,9 @@
+// ignore_for_file: constant_identifier_names
+
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:project/Screens/splash.dart';
 import 'package:project/model/add_data.dart';
-
-
 
 const Save_Key = 'User LoggedIn';
 
@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
 
       home:SplashScreen() );

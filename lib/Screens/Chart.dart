@@ -59,11 +59,11 @@ class _ChartState extends State<Chart> {
               Datas('Expense', expense),
             ],
             pointColorMapper: (Datas data, _) => data.expandincome == 'Income'
-                ? Color.fromARGB(255, 3, 108, 21)
-                : Color(0xFFED5449),
+                ? const Color.fromARGB(255, 3, 108, 21)
+                : const Color(0xFFED5449),
             xValueMapper: (Datas data, _) => data.expandincome,
             yValueMapper: (Datas data, _) => data.year,
-            dataLabelSettings: DataLabelSettings(
+            dataLabelSettings: const DataLabelSettings(
               isVisible: true,
             ))
       ],

@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
-import '../DB/DB.dart';
-import '../model/add_data.dart';
+import 'package:project/model/add_data.dart';
 
-class search extends SearchDelegate {
+import '../dbfunctions/db_functions.dart';
+
+
+
+
+class Search extends SearchDelegate {
   
 
   @override

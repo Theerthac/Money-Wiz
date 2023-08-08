@@ -1,11 +1,11 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:project/DB/DB.dart';
-import 'package:project/Screens/Transaction.dart';
+import 'package:project/Screens/transactionsscreen.dart';
 import 'package:project/model/add_data.dart';
 import 'package:project/utility/utility.dart';
+import '../dbfunctions/db_functions.dart';
+
 
 class Home extends StatefulWidget {
    String username;
@@ -19,12 +19,14 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-    getAlldata();
+    getalldata();
     return Scaffold(
         body: SafeArea(
             child: Stack(children: [
       Column(
+      
         children: [
+          
           Container(
             width: size.width,
             height: size.height * 0.35,

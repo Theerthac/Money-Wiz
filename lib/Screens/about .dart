@@ -23,7 +23,7 @@ class _AboutState extends State<About> {
               Container(
                 width: double.infinity,
                 height: 140,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                     color: Color(0xFFFDC603),
                     borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(30),
@@ -31,7 +31,7 @@ class _AboutState extends State<About> {
                     )),
                 child: Column(
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       height: 40,
                     ),
                     Padding(
@@ -50,11 +50,11 @@ class _AboutState extends State<About> {
                                   },
                                 ));
                               },
-                              child: Icon(
+                              child: const Icon(
                                 Icons.arrow_back,
                                 color: Colors.black,
                               )),
-                          Text(
+                          const Text(
                             '    About',
                             style: TextStyle(
                                 fontSize: 20,
@@ -69,13 +69,13 @@ class _AboutState extends State<About> {
               ),
             ],
           ),
-          Column(
+           const Column(
             children: [
               SizedBox(
                 height: 20,
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 160, right: 150),
+                padding: EdgeInsets.only(top: 160, right: 150),
                 child: Text(
                   'Money Management',
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
@@ -85,7 +85,7 @@ class _AboutState extends State<About> {
                 height: 40,
               ),
               Padding(
-                padding: const EdgeInsets.only(bottom: 50, right: 20, top: 20),
+                padding: EdgeInsets.only(bottom: 50, right: 20, top: 20),
                 child: Text(
                   '"This is an app where you can\nadd your daily transactions\naccording to the category which it belongs to."',
                   textAlign: TextAlign.left,
@@ -96,7 +96,7 @@ class _AboutState extends State<About> {
                 height: 40,
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 150),
+                padding: EdgeInsets.only(left: 150),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
@@ -109,7 +109,7 @@ class _AboutState extends State<About> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 15, left: 223),
+                padding: EdgeInsets.only(top: 15, left: 223),
                 child: Row(
                   children: [
                     Center(

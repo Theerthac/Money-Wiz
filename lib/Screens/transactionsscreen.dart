@@ -1,13 +1,14 @@
 // ignore_for_file: must_be_immutable
-
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/hive_flutter.dart';
-import 'package:project/Screens/Bottom.dart';
-import 'package:project/Screens/Edit.dart';
-import 'package:project/Screens/Search.dart';
-import 'package:project/model/add_data.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import '../DB/DB.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:project/Screens/Search.dart';
+import 'package:project/Screens/bottomscreen.dart';
+import 'package:project/Screens/editscreen.dart';
+import 'package:project/model/add_data.dart';
+import '../dbfunctions/db_functions.dart';
+
+
 
 class Transaction extends StatefulWidget {
   String username;
@@ -22,7 +23,7 @@ class _TransactionState extends State<Transaction> {
 
   @override
   Widget build(BuildContext context) {
-    getAlldata();
+    getalldata();
     return Scaffold(
         body: SafeArea(
             child: Stack(children: [
@@ -76,7 +77,7 @@ class _TransactionState extends State<Transaction> {
         ),
         IconButton(
             onPressed: () {
-              showSearch(context: context, delegate: search());
+              showSearch(context: context, delegate: Search());
             },
             icon: const Icon(Icons.search)),
         Expanded(
@@ -150,7 +151,7 @@ class _TransactionState extends State<Transaction> {
                                               date:
                                                   '  ${data.dateTime.year}-${data.dateTime.day}-${data.dateTime.month}',
                                               amount: data.amount,
-                                              discription: data.description)));
+                                              description: data.description)));
 
                                       
                                     });

@@ -1,30 +1,53 @@
 // ignore_for_file: must_be_immutable
-
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:project/Screens/Bottom.dart';
+import 'package:project/Screens/bottomscreen.dart';
 import 'package:project/model/add_data.dart';
 
-import '../DB/DB.dart';
+import '../dbfunctions/db_functions.dart';
 
-class Add extends StatefulWidget {
+
+
+class Edit_Data extends StatefulWidget {
   String username;
-   Add({super.key ,required this.username});
+  var select;
+  var date;
+  var amount;
+  var description;
+  late int index;
+
+  Edit_Data({
+    super.key,
+    required this.username,
+    required this.index,
+    required this.select,
+    required this.date,
+    required this.amount,
+    required this.description,
+  });
 
   @override
-  State<Add> createState() => _AddState();
+  State<Edit_Data> createState() => _Edit_DataState();
 }
 
-class _AddState extends State<Add> {
+class _Edit_DataState extends State<Edit_Data> {
   DateTime date = DateTime.now();
   String? selecteditems;
 
-  final TextEditingController Description_controller = TextEditingController();
+  final TextEditingController Discription_controller = TextEditingController();
   final TextEditingController Amount_controller = TextEditingController();
+  final TextEditingController Date_controller = TextEditingController();
+  final TextEditingController Select_controller = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+
+    // final Amount_controller = TextEditingController(text: widget.select);
+    // final Discription_controller = TextEditingController(text: widget.select);
+  }
 
   final List<String> _item = ['Income', 'Expense'];
-  GlobalKey<FormState> _FieldKey = GlobalKey<FormState>();
-
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
@@ -43,6 +66,7 @@ class _AddState extends State<Add> {
     );
   }
 
+
   Container main_container() {
     return Container(
       decoration: BoxDecoration(
@@ -51,114 +75,108 @@ class _AddState extends State<Add> {
       ),
       width: 340,
       height: 550,
-      child: Form(
-        key: _FieldKey,
-        child: Column(children: [
-          SizedBox(
-            height: 50,
-          ),
-          name(),
-          SizedBox(
-            height: 30,
-          ),
-          Container(
-            alignment: Alignment.bottomLeft,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(
-                    width: 2, color: Color.fromARGB(255, 182, 181, 181))),
-            width: 300,
-            child: TextButton(
-              onPressed: () async {
-                DateTime? newDate = await showDatePicker(
-                    context: context,
-                    initialDate: date,
-                    firstDate: DateTime(2020),
-                    lastDate: DateTime(2100));
-                if (newDate == Null) return;
-                setState(() {
-                  date = newDate!;
-                });
-              },
-              child: Text(
-                'Date  :${date.year} /  ${date.day} / ${date.month}',
-                style: TextStyle(
-                  fontSize: 15,
-                  color: Colors.black,
-                ),
+      child: Column(children: [
+        const SizedBox(
+          height: 50,
+        ),
+        name(),
+        const SizedBox(
+          height: 30,
+        ),
+        Container(
+          alignment: Alignment.bottomLeft,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(
+                  width: 2, color: const Color.fromARGB(255, 182, 181, 181))),
+          width: 300,
+          child: TextButton(
+            onPressed: () async {
+              DateTime? newDate = await showDatePicker(
+                  context: context,
+                  initialDate: date,
+                  firstDate: DateTime(2020),
+                  lastDate: DateTime(2100));
+              if (newDate == Null) return;
+              setState(() {
+                date = newDate!;
+              });
+            },
+            child: Text(
+              'Date  :${date.year} /  ${date.day} / ${date.month}',
+              style: const TextStyle(
+                fontSize: 15,
+                color: Colors.black,
               ),
             ),
           ),
-          SizedBox(
-            height: 30,
-          ),
-          Amount(),
-          SizedBox(
-            height: 30,
-          ),
-          Discription(),
-          SizedBox(
-            height: 30,
-          ),
-          ElevatedButton.icon(
-            onPressed: () {
-              setState(() {
-                onAddButtonClicked(context);
-              });
-            },
-            icon: Icon(Icons.add),
-            label: Text('Add'),
-          ),
-        ]),
-      ),
+        ),
+        const SizedBox(
+          height: 30,
+        ),
+        amount(),
+        const SizedBox(
+          height: 30,
+        ),
+        description(),
+        const SizedBox(
+          height: 30,
+        ),
+        ElevatedButton.icon(
+          onPressed: () {
+            updateall();
+          },
+          icon: Icon(Icons.add),
+          label: const Text('Update'),
+        ),
+      ]),
     );
   }
 
-  Padding Discription() {
+  Padding description() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15),
       child: TextFormField(
-          controller: Description_controller,
+          controller: Discription_controller,
           decoration: InputDecoration(
               contentPadding:
-                  EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-              labelText: 'Description',
-              labelStyle: TextStyle(
+                  const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+              labelText: 'Discription',
+              labelStyle: const TextStyle(
                   fontSize: 17, color: Color.fromARGB(255, 74, 73, 73)),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
-                borderSide: BorderSide(
+                borderSide: const BorderSide(
                     width: 2, color: Color.fromARGB(255, 182, 181, 181)),
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
-                borderSide: BorderSide(
+                borderSide: const BorderSide(
                     width: 2, color: Color.fromARGB(255, 182, 181, 181)),
               ))),
     );
   }
 
-  Padding Amount() {
+  Padding amount() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15),
       child: TextFormField(
           keyboardType: TextInputType.number,
           controller: Amount_controller,
-         
           decoration: InputDecoration(
               contentPadding:
-                  EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                  const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
               labelText: 'Amount',
-              labelStyle: TextStyle(
+              labelStyle: const TextStyle(
                   fontSize: 17, color: Color.fromARGB(255, 74, 73, 73)),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
-                borderSide: BorderSide(
+                borderSide: const BorderSide(
                     width: 2, color: Color.fromARGB(255, 182, 181, 181)),
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
-                borderSide: BorderSide(
+                borderSide: const BorderSide(
                     width: 2, color: Color.fromARGB(255, 182, 181, 181)),
               ))),
     );
@@ -168,13 +186,13 @@ class _AddState extends State<Add> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15),
       child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 15),
+          padding: const EdgeInsets.symmetric(horizontal: 15),
           width: 300,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
               border: Border.all(
                 width: 2,
-                color: Color.fromARGB(255, 208, 205, 205),
+                color: const Color.fromARGB(255, 208, 205, 205),
               )),
           child: DropdownButton<String>(
             items: _item
@@ -182,13 +200,13 @@ class _AddState extends State<Add> {
                       child: Container(
                         child: Text(
                           e,
-                          style: TextStyle(fontSize: 17),
+                          style: const TextStyle(fontSize: 17),
                         ),
                       ),
                       value: e,
                     ))
                 .toList(),
-            hint: Text(
+            hint: const Text(
               'Select',
               style: TextStyle(color: Colors.grey),
             ),
@@ -211,14 +229,14 @@ class _AddState extends State<Add> {
         Container(
           width: double.infinity,
           height: 600,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
               color: Color(0xFFFDC603),
               borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(30),
                   bottomRight: Radius.circular(30))),
           child: Column(
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 40,
               ),
               Padding(
@@ -233,16 +251,16 @@ class _AddState extends State<Add> {
                       onTap: () {
                         Navigator.of(context).pop();
                       },
-                      child: Icon(
+                      child: const Icon(
                         Icons.arrow_back,
                         color: Colors.black,
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 60,
                     ),
-                    Text(
-                      'Add Transactions',
+                    const Text(
+                      'Edit Transaction',
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.w700,
@@ -259,30 +277,22 @@ class _AddState extends State<Add> {
     );
   }
 
-  Future<void> onAddButtonClicked(BuildContext context) async {
-    final _selecttype = selecteditems.toString();
-    final _ddate = DateTime.now();
-    final _amount = double.parse(Amount_controller.text);
-    final _description = Description_controller.text.trim().toString();
+  Future<void> updateall() async {
+    final edit = selecteditems.toString();
+    final edit1 = DateTime.now();
+    final edit2 = double.parse(Amount_controller.text);
+    final edit3 = Discription_controller.text.trim();
 
-    if (_selecttype.isEmpty || _amount == null || _description.isEmpty) {
+    if (edit.isEmpty || edit2 == null || edit3.isEmpty) {
       return;
     } else {
-      final llist = add_data(
-        select: _selecttype,
-        dateTime: _ddate,
-        amount: _amount,
-        description: _description,
-      );
-
-      addMoney(llist);
-
-      Navigator.of(context)
-          .pushReplacement(MaterialPageRoute(builder: (context) {
-        return Bottom(
-          username: widget.username,
-        );
-      }));
+      final updation =
+          add_data(select: edit, dateTime: edit1, amount: edit2, description: edit3);
+      editdata(widget.index, updation);
+      Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => Bottom(
+                username: widget.username,
+              )));
     }
   }
 }

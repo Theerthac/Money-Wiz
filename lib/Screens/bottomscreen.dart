@@ -1,12 +1,11 @@
-// ignore_for_file: must_be_immutable
+// ignore_for_file: must_be_immutable, 
 
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:project/Screens/Add.dart';
-import 'package:project/Screens/Home.dart';
 import 'package:project/Screens/Statistics.dart';
-import 'package:project/Screens/Transaction.dart';
+import 'package:project/Screens/addscreen.dart';
+import 'package:project/Screens/homescreen.dart';
 import 'package:project/Screens/settings.dart';
+import 'package:project/Screens/transactionsscreen.dart';
 
 class Bottom extends StatefulWidget {
   String username;
@@ -20,12 +19,12 @@ class Bottom extends StatefulWidget {
 class _BottomState extends State<Bottom> {
   int index_color = 0;
  
- late List Screens =  [Home(username:widget.username,), Transaction(username: widget.username), 
+ late List screens =  [Home(username:widget.username,), Transaction(username: widget.username), 
   Statistics(username: widget.username,), Settings(username: widget.username,)];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Screens[index_color],
+      body: screens[index_color],
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.of(context).push(MaterialPageRoute(
@@ -34,12 +33,13 @@ class _BottomState extends State<Bottom> {
             ),
           ));
         },
-        child: Icon(Icons.add),
-        backgroundColor: Color(0xFFFDC603),
+       
+        child:  const Icon(Icons.add),
+        backgroundColor: const Color(0xFFFDC603),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
-        shape: CircularNotchedRectangle(),
+        shape: const CircularNotchedRectangle(),
         child: Padding(
           padding: const EdgeInsets.only(top: 7.5, bottom: 7.5),
           child: Row(
@@ -69,7 +69,7 @@ class _BottomState extends State<Bottom> {
                   color: index_color == 1 ? Colors.black : Colors.grey,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 20,
               ),
               GestureDetector(
