@@ -1,11 +1,9 @@
 
+// ignore_for_file: must_be_immutable
 import 'package:flutter/material.dart';
 import 'package:project/Screens/bottomscreen.dart';
 import 'package:project/dbfunctions/db_functions.dart';
 import 'package:project/model/add_data.dart';
-
-
-
 
 class Add extends StatefulWidget {
   String username;

@@ -30,7 +30,7 @@ class _HomeState extends State<Home> {
           Container(
             width: size.width,
             height: size.height * 0.35,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
                 color: Color(0xFFFDC603),
                 borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(20),
@@ -43,7 +43,7 @@ class _HomeState extends State<Home> {
                   Text(
                     'Hey ${widget.username}',
                   
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 20,
                     ),
@@ -64,7 +64,7 @@ class _HomeState extends State<Home> {
             boxShadow: [
               BoxShadow(
                 color: Colors.amber.shade300,
-                offset: Offset(0, 6),
+                offset: const Offset(0, 6),
                 blurRadius: 12,
                 spreadRadius: 6,
               )
@@ -74,10 +74,10 @@ class _HomeState extends State<Home> {
           ),
           child: Column(
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
-              Row(
+              const Row(
                 children: [
                   SizedBox(
                     height: 10,
@@ -91,7 +91,7 @@ class _HomeState extends State<Home> {
                   ),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Padding(
@@ -100,7 +100,7 @@ class _HomeState extends State<Home> {
                   children: [
                     Text(
                       '\$ ${total()}',
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 23,
                       ),
@@ -108,11 +108,11 @@ class _HomeState extends State<Home> {
                   ],
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 25,
               ),
-              Padding(
-                padding: const EdgeInsets.only(left: 7,top: 25),
+              const Padding(
+                padding: EdgeInsets.only(left: 7,top: 25),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -157,7 +157,7 @@ class _HomeState extends State<Home> {
                   ],
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 6,
               ),
               Padding(
@@ -167,14 +167,14 @@ class _HomeState extends State<Home> {
                   children: [
                     Text(
                       '\$ ${income()}',
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontWeight: FontWeight.w600,
                         fontSize: 18,
                       ),
                     ),
                     Text(
                       '\$ ${expense()}',
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontWeight: FontWeight.w600,
                         fontSize: 18,
                       ),
@@ -197,7 +197,7 @@ class _HomeState extends State<Home> {
                   return Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
+                      const Text(
                         'Transactions History',
                         style: TextStyle(
                           fontWeight: FontWeight.w800,
@@ -227,7 +227,7 @@ class _HomeState extends State<Home> {
                 },
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
             Expanded(
@@ -241,14 +241,14 @@ class _HomeState extends State<Home> {
                       return ListTile(
                           title: Text(
                             data.description,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 19,
                               fontWeight: FontWeight.w700,
                             ),
                           ),
                           subtitle: Text(
                             '  ${data.dateTime.year}-${data.dateTime.day}-${data.dateTime.month}',
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontWeight: FontWeight.w700,
                             ),
                           ),
@@ -263,7 +263,7 @@ class _HomeState extends State<Home> {
                           ));
                     },
                     separatorBuilder: (ctx, index) {
-                      return Divider();
+                      return const Divider();
                     },
                     itemCount: AddList.length > 4 ? 4 : AddList.length,
                   );

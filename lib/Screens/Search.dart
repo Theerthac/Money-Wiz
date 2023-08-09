@@ -4,8 +4,6 @@ import 'package:project/model/add_data.dart';
 import '../dbfunctions/db_functions.dart';
 
 
-
-
 class Search extends SearchDelegate {
   
 
@@ -58,14 +56,14 @@ class Search extends SearchDelegate {
                       return ListTile(
                           title: Text(
                             data.description,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 19,
                               fontWeight: FontWeight.w700,
                             ),
                           ),
                           subtitle: Text(
                             '  ${data.dateTime.year}-${data.dateTime.day}-${data.dateTime.month}',
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontWeight: FontWeight.w700,
                             ),
                           ),
@@ -87,7 +85,7 @@ class Search extends SearchDelegate {
                     }
                   },
                   separatorBuilder: (ctx, index) {
-                    return Divider();
+                    return const Divider();
                   },
                   itemCount: AddList.length,
                 );
@@ -120,14 +118,14 @@ class Search extends SearchDelegate {
                       return ListTile(
                           title: Text(
                             data.description,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 19,
                               fontWeight: FontWeight.w700,
                             ),
                           ),
                           subtitle: Text(
                             '  ${data.dateTime.year}-${data.dateTime.day}-${data.dateTime.month}',
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontWeight: FontWeight.w700,
                             ),
                           ),
@@ -145,7 +143,7 @@ class Search extends SearchDelegate {
                     }
                   },
                   separatorBuilder: (ctx, index) {
-                    return Divider();
+                    return const Divider();
                   },
                   itemCount: AddList.length);
         });

@@ -31,7 +31,7 @@ class _TransactionState extends State<Transaction> {
         Container(
           width: double.infinity,
           height: 141,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
               color: Color(0xFFFDC603),
               borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(30),
@@ -39,7 +39,7 @@ class _TransactionState extends State<Transaction> {
               )),
           child: Column(
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 40,
               ),
               Padding(
@@ -56,11 +56,11 @@ class _TransactionState extends State<Transaction> {
                               },
                             ));
                           },
-                          child: Icon(
+                          child: const Icon(
                             Icons.arrow_back,
                             color: Colors.black,
                           )),
-                      Text(
+                      const Text(
                         '     Transaction Histrory',
                         style: TextStyle(
                             fontSize: 20,
@@ -72,7 +72,7 @@ class _TransactionState extends State<Transaction> {
             ],
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 20,
         ),
         IconButton(
@@ -97,7 +97,7 @@ class _TransactionState extends State<Transaction> {
                               });
                             },
                           ),
-                          motion: BehindMotion(),
+                          motion: const BehindMotion(),
                           children: [
                             SlidableAction(
                               label: 'Delete',
@@ -114,14 +114,14 @@ class _TransactionState extends State<Transaction> {
                       child: ListTile(
                           title: Text(
                             data.description,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 19,
                               fontWeight: FontWeight.w700,
                             ),
                           ),
                           subtitle: Text(
                             '  ${data.dateTime.year}-${data.dateTime.day}-${data.dateTime.month}',
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontWeight: FontWeight.w700,
                             ),
                           ),
@@ -137,7 +137,7 @@ class _TransactionState extends State<Transaction> {
                                         ? Colors.green
                                         : Colors.red),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 10,
                               ),
                               IconButton(
@@ -156,7 +156,7 @@ class _TransactionState extends State<Transaction> {
                                       
                                     });
                                   },
-                                  icon: Icon(
+                                  icon: const Icon(
                                     Icons.edit,
                                     color: Colors.green,
                                   ))

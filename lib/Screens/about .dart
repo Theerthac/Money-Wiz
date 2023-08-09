@@ -77,7 +77,7 @@ class _AboutState extends State<About> {
               Padding(
                 padding: EdgeInsets.only(top: 160, right: 150),
                 child: Text(
-                  'Money Management',
+                  'Money Wiz',
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
               ),

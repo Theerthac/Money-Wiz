@@ -1,6 +1,6 @@
-import 'package:hive/hive.dart';
-import 'package:project/model/add_data.dart';
 
+import 'package:hive/hive.dart';
+import '../model/add_data.dart';
 
 num totals = 0;
 final box = Hive.box<add_data>('data');

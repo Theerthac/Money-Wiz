@@ -1,7 +1,6 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:project/Screens/Chart.dart';
 import 'package:project/model/add_data.dart';
 import 'package:project/utility/utility.dart';
@@ -98,10 +97,10 @@ class _StatisticsState extends State<Statistics> {
                   ],
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
-              Container(
+              SizedBox(
                 width: 400,
                 height: 400,
                 child: Chart(

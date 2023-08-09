@@ -56,11 +56,11 @@ class _SettingsState extends State<Settings> {
                               },
                             ));
                           },
-                          child: Icon(
+                          child: const Icon(
                             Icons.arrow_back,
                             color: Colors.black,
                           )),
-                      Text(
+                      const Text(
                         '     Settings',
                         style: TextStyle(
                             fontSize: 20,
@@ -73,15 +73,15 @@ class _SettingsState extends State<Settings> {
               ],
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 30,
           ),
           Column(
             children: [
               Row(
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 20),
+                  const Padding(
+                    padding: EdgeInsets.only(left: 20),
                     child: Icon(
                       Icons.info_outline,
                       size: 30,
@@ -98,7 +98,7 @@ class _SettingsState extends State<Settings> {
                         },
                       ));
                     },
-                    child: Text(
+                    child: const Text(
                       '   About',
                       style: TextStyle(
                           fontSize: 20,
@@ -108,7 +108,7 @@ class _SettingsState extends State<Settings> {
                   )
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Row(
@@ -117,7 +117,7 @@ class _SettingsState extends State<Settings> {
                     padding: const EdgeInsets.only(left: 20),
                     child: GestureDetector(
                       onTap: () {},
-                      child: Icon(
+                      child: const Icon(
                         Icons.history_outlined,
                         size: 30,
                         color: Colors.black,
@@ -128,7 +128,7 @@ class _SettingsState extends State<Settings> {
                     onTap: () {
                       resetApp(context);
                     },
-                    child: Text(
+                    child: const Text(
                       '   Reset',
                       style: TextStyle(
                           fontSize: 20,
@@ -138,13 +138,13 @@ class _SettingsState extends State<Settings> {
                   )
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Row(
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 20),
+                  const Padding(
+                    padding: EdgeInsets.only(left: 20),
                     child: Icon(
                       Icons.content_paste,
                       size: 30,
@@ -161,7 +161,7 @@ class _SettingsState extends State<Settings> {
                         },
                       ));
                     },
-                    child: Text(
+                    child: const Text(
                       '   Terms & Conditions',
                       style: TextStyle(
                           fontSize: 20,
@@ -171,13 +171,13 @@ class _SettingsState extends State<Settings> {
                   )
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Row(
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 20),
+                  const Padding(
+                    padding: EdgeInsets.only(left: 20),
                     child: Icon(
                       Icons.privacy_tip_outlined,
                       size: 30,
@@ -194,7 +194,7 @@ class _SettingsState extends State<Settings> {
                         },
                       ));
                     },
-                    child: Text(
+                    child: const Text(
                       '   Privacy Policy',
                       style: TextStyle(
                           fontSize: 20,

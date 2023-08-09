@@ -126,7 +126,7 @@ class _Edit_DataState extends State<Edit_Data> {
           onPressed: () {
             updateall();
           },
-          icon: Icon(Icons.add),
+          icon: const Icon(Icons.add),
           label: const Text('Update'),
         ),
       ]),

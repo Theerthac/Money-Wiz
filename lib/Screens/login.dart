@@ -7,7 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class Login extends StatefulWidget {
  
-   Login({super.key, });
+   const Login({super.key, });
 
   @override
   State<Login> createState() => _LoginState();
@@ -67,7 +67,7 @@ class _LoginState extends State<Login> {
       decoration: BoxDecoration(
           border: Border.all(color: Colors.white, width: 2),
           shape: BoxShape.circle),
-      child: Icon(
+      child: const Icon(
         Icons.person,
         color: Colors.white,
         size: 120,
@@ -121,10 +121,10 @@ class _LoginState extends State<Login> {
             style: TextStyle(fontSize: 20),
           )),
       style: ElevatedButton.styleFrom(
-        shape: StadiumBorder(),
+        shape: const StadiumBorder(),
         backgroundColor: Colors.white,
         foregroundColor: Colors.blue,
-        padding: EdgeInsets.symmetric(vertical: 16),
+        padding: const EdgeInsets.symmetric(vertical: 16),
       ),
     );
   }

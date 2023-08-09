@@ -3,7 +3,6 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:project/Screens/settings.dart';
 
 class Privacy extends StatefulWidget {
@@ -26,7 +25,7 @@ class _PrivacyState extends State<Privacy> {
               Container(
                 width: double.infinity,
                 height: 140,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                     color: Color(0xFFFDC603),
                     borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(30),
@@ -34,7 +33,7 @@ class _PrivacyState extends State<Privacy> {
                     )),
                 child: Column(
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       height: 40,
                     ),
                     Padding(
@@ -51,11 +50,11 @@ class _PrivacyState extends State<Privacy> {
                                   },
                                 ));
                               },
-                              child: Icon(
+                              child: const Icon(
                                 Icons.arrow_back,
                                 color: Colors.black,
                               )),
-                          Text(
+                          const Text(
                             '    Privacy Policy',
                             style: TextStyle(
                                 fontSize: 20,
