@@ -1,52 +1,48 @@
 // ignore_for_file: must_be_immutable
 import 'package:flutter/material.dart';
-import 'package:project/Screens/bottomscreen.dart';
+import 'package:flutter/services.dart';
+import 'package:project/controller/addscreen_provider.dart';
+import 'package:project/controller/dbfunction_provider.dart';
 import 'package:project/model/add_data.dart';
+import 'package:provider/provider.dart';
+import '../../widget/bottomscreen.dart';
 
-import '../dbfunctions/db_functions.dart';
-
-
-
-class Edit_Data extends StatefulWidget {
+class Add extends StatefulWidget {
   String username;
-  var select;
-  var date;
-  var amount;
-  var description;
-  late int index;
-
-  Edit_Data({
-    super.key,
-    required this.username,
-    required this.index,
-    required this.select,
-    required this.date,
-    required this.amount,
-    required this.description,
-  });
+  Add({super.key, required this.username});
 
   @override
-  State<Edit_Data> createState() => _Edit_DataState();
+  State<Add> createState() => _AddState();
 }
 
-class _Edit_DataState extends State<Edit_Data> {
-  DateTime date = DateTime.now();
-  String? selecteditems;
-
-  final TextEditingController Discription_controller = TextEditingController();
-  final TextEditingController Amount_controller = TextEditingController();
-  final TextEditingController Date_controller = TextEditingController();
-  final TextEditingController Select_controller = TextEditingController();
-
+class _AddState extends State<Add> {
   @override
   void initState() {
     super.initState();
-
-    // final Amount_controller = TextEditingController(text: widget.select);
-    // final Discription_controller = TextEditingController(text: widget.select);
+    Future.delayed(Duration.zero, () {
+      Provider.of<AddScreenProvider>(context, listen: false)
+          .resetselecteditems();
+      Provider.of<AddScreenProvider>(context, listen: false).resetdate();
+    });
   }
 
+  @override
+  void dispose() {
+    descriptionController.dispose();
+    amountController.dispose();
+    super.dispose();
+  }
+
+  
+
+  final TextEditingController descriptionController = TextEditingController();
+  final TextEditingController amountController = TextEditingController();
+
   final List<String> _item = ['Income', 'Expense'];
+
+
+  final GlobalKey<FormState> _fieldKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,10 +51,10 @@ class _Edit_DataState extends State<Edit_Data> {
             child: Stack(
           alignment: AlignmentDirectional.center,
           children: [
-            background_container(context),
+            backgroundContainer(context),
             Positioned(
               top: 120,
-              child: main_container(),
+              child: mainContainer(),
             )
           ],
         )),
@@ -66,8 +62,7 @@ class _Edit_DataState extends State<Edit_Data> {
     );
   }
 
-
-  Container main_container() {
+  Container mainContainer() {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
@@ -75,61 +70,68 @@ class _Edit_DataState extends State<Edit_Data> {
       ),
       width: 340,
       height: 550,
-      child: Column(children: [
-        const SizedBox(
-          height: 50,
-        ),
-        name(),
-        const SizedBox(
-          height: 30,
-        ),
-        Container(
-          alignment: Alignment.bottomLeft,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              border: Border.all(
-                  width: 2, color: const Color.fromARGB(255, 182, 181, 181))),
-          width: 300,
-          child: TextButton(
-            onPressed: () async {
-              DateTime? newDate = await showDatePicker(
-                  context: context,
-                  initialDate: date,
-                  firstDate: DateTime(2020),
-                  lastDate: DateTime(2100));
-              if (newDate == Null) return;
+      child: Form(
+        key: _fieldKey,
+        child: Column(children: [
+          const SizedBox(
+            height: 50,
+          ),
+          name(),
+          const SizedBox(
+            height: 30,
+          ),
+          Container(
+            alignment: Alignment.bottomLeft,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(
+                    width: 2, color: const Color.fromARGB(255, 182, 181, 181))),
+            width: 300,
+            child:
+                Consumer<AddScreenProvider>(builder: (context, value, child) {
+              return TextButton(
+                onPressed: () async {
+                  DateTime? newDate = await showDatePicker(
+                      context: context,
+                      initialDate: value.date,
+                      firstDate: DateTime(2020),
+                      lastDate: DateTime(2100));
+                  // ignore: unrelated_type_equality_checks
+                  if (newDate == Null) return;
+                  value.changeDatevalue(newDate!);
+                },
+                child: Text(
+                  'Date  :${value.date.year} /  ${value.date.day} / ${value.date.month}',
+                  style: const TextStyle(
+                    fontSize: 15,
+                    color: Colors.black,
+                  ),
+                ),
+              );
+            }),
+          ),
+          const SizedBox(
+            height: 30,
+          ),
+          amount(),
+          const SizedBox(
+            height: 30,
+          ),
+          description(),
+          const SizedBox(
+            height: 30,
+          ),
+          ElevatedButton.icon(
+            onPressed: () {
               setState(() {
-                date = newDate!;
+                onAddButtonClicked(context);
               });
             },
-            child: Text(
-              'Date  :${date.year} /  ${date.day} / ${date.month}',
-              style: const TextStyle(
-                fontSize: 15,
-                color: Colors.black,
-              ),
-            ),
+            icon: const Icon(Icons.add),
+            label: const Text('Add'),
           ),
-        ),
-        const SizedBox(
-          height: 30,
-        ),
-        amount(),
-        const SizedBox(
-          height: 30,
-        ),
-        description(),
-        const SizedBox(
-          height: 30,
-        ),
-        ElevatedButton.icon(
-          onPressed: () {
-            updateall();
-          },
-          icon: const Icon(Icons.add),
-          label: const Text('Update'),
-        ),
-      ]),
+        ]),
+      ),
     );
   }
 
@@ -137,11 +139,11 @@ class _Edit_DataState extends State<Edit_Data> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15),
       child: TextFormField(
-          controller: Discription_controller,
+          controller: descriptionController,
           decoration: InputDecoration(
               contentPadding:
                   const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-              labelText: 'Discription',
+              labelText: 'Description',
               labelStyle: const TextStyle(
                   fontSize: 17, color: Color.fromARGB(255, 74, 73, 73)),
               enabledBorder: OutlineInputBorder(
@@ -162,7 +164,10 @@ class _Edit_DataState extends State<Edit_Data> {
       padding: const EdgeInsets.symmetric(horizontal: 15),
       child: TextFormField(
           keyboardType: TextInputType.number,
-          controller: Amount_controller,
+          controller: amountController,
+          inputFormatters: [
+            FilteringTextInputFormatter.allow(RegExp(r'[0-9]'))
+          ],
           decoration: InputDecoration(
               contentPadding:
                   const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
@@ -186,15 +191,16 @@ class _Edit_DataState extends State<Edit_Data> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15),
       child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 15),
-          width: 300,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              border: Border.all(
-                width: 2,
-                color: const Color.fromARGB(255, 208, 205, 205),
-              )),
-          child: DropdownButton<String>(
+        padding: const EdgeInsets.symmetric(horizontal: 15),
+        width: 300,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(
+              width: 2,
+              color: const Color.fromARGB(255, 208, 205, 205),
+            )),
+        child: Consumer<AddScreenProvider>(builder: (context, value, child) {
+          return DropdownButton<String>(
             items: _item
                 .map((e) => DropdownMenuItem(
                       child: Container(
@@ -213,17 +219,20 @@ class _Edit_DataState extends State<Edit_Data> {
             dropdownColor: Colors.white,
             isExpanded: true,
             underline: Container(),
-            value: selecteditems,
-            onChanged: ((value) {
-              setState(() {
-                selecteditems = value!;
-              });
-            }),
-          )),
+            value: value.selecteditems,
+            onChanged: (value) {
+              Provider.of<AddScreenProvider>(context, listen: false)
+                  .changeselecteditemvalue(value);
+            },
+            
+          );
+        }),
+      ),
     );
   }
 
-  Column background_container(BuildContext context) {
+  
+  Column backgroundContainer(BuildContext context) {
     return Column(
       children: [
         Container(
@@ -260,7 +269,7 @@ class _Edit_DataState extends State<Edit_Data> {
                       width: 60,
                     ),
                     const Text(
-                      'Edit Transaction',
+                      'Add Transactions',
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.w700,
@@ -277,22 +286,33 @@ class _Edit_DataState extends State<Edit_Data> {
     );
   }
 
-  Future<void> updateall() async {
-    final edit = selecteditems.toString();
-    final edit1 = DateTime.now();
-    final edit2 = double.parse(Amount_controller.text);
-    final edit3 = Discription_controller.text.trim();
 
-    if (edit.isEmpty || edit2 == null || edit3.isEmpty) {
+  Future<void> onAddButtonClicked(BuildContext context) async {
+    final selecttype =
+        Provider.of<AddScreenProvider>(context, listen: false).selecteditems;
+    final ddate = Provider.of<AddScreenProvider>(context, listen: false).date;
+    final amount = double.tryParse(amountController.text) ?? 0.0;
+    final description = descriptionController.text.trim().toString();
+
+    if (selecttype!.isEmpty || amount <= 0 || description.isEmpty) {
       return;
     } else {
-      final updation =
-          add_data(select: edit, dateTime: edit1, amount: edit2, description: edit3);
-      editdata(widget.index, updation);
-      Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => Bottom(
-                username: widget.username,
-              )));
+      final dataToadd = add_data(
+        select: selecttype,
+        dateTime: ddate,
+        amount: amount,
+        description: description,
+      );
+
+      // addmoney(dataToadd);
+
+      Navigator.of(context)
+          .pushReplacement(MaterialPageRoute(builder: (context) {
+        return Bottom(
+          username: widget.username,
+        );
+      }));
+      Provider.of<DbfunctionProvider>(context, listen: false).addmoney(dataToadd);
     }
   }
 }

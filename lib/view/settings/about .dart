@@ -1,17 +1,15 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
-import 'package:project/Screens/settings.dart';
 
-class About extends StatefulWidget {
+import '../settingScreen/settings.dart';
+
+
+
+class About extends StatelessWidget {
   String username;
    About({super.key,required this.username});
 
-  @override
-  State<About> createState() => _AboutState();
-}
-
-class _AboutState extends State<About> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,7 +43,7 @@ class _AboutState extends State<About> {
                                 Navigator.of(context).push(MaterialPageRoute(
                                   builder: (context) {
                                     return Settings(
-                                      username: widget.username,
+                                      username: username,
                                     );
                                   },
                                 ));

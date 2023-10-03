@@ -1,7 +1,9 @@
+// ignore_for_file: use_build_context_synchronously, sort_child_properties_last
+
 import 'package:flutter/material.dart';
-import 'package:project/Screens/bottomscreen.dart';
 import 'package:project/main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../../widget/bottomscreen.dart';
 
 
 

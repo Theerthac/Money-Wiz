@@ -3,17 +3,14 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
-import 'package:project/Screens/settings.dart';
 
-class Privacy extends StatefulWidget {
+import '../settingScreen/settings.dart';
+
+
+class Privacy extends StatelessWidget {
   String username;
    Privacy({super.key, required this.username});
 
-  @override
-  State<Privacy> createState() => _PrivacyState();
-}
-
-class _PrivacyState extends State<Privacy> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,7 +43,7 @@ class _PrivacyState extends State<Privacy> {
                               onTap: () {
                                 Navigator.of(context).push(MaterialPageRoute(
                                   builder: (context) {
-                                    return Settings(username: widget.username);
+                                    return Settings(username: username);
                                   },
                                 ));
                               },

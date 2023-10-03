@@ -1,9 +1,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-import 'package:project/Screens/login.dart';
 import 'package:project/model/add_data.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../login/login.dart';
 
 resetApp(BuildContext context) {
     showDialog( 
@@ -28,7 +29,7 @@ resetApp(BuildContext context) {
                   
                     Navigator.of(context).pushReplacement(
                       MaterialPageRoute(
-                        builder: (context) =>  Login(),
+                        builder: (context) =>  const Login(),
                       ),
                     );
                     

@@ -1,15 +1,14 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
-import 'package:project/Screens/transactionsscreen.dart';
-import 'package:project/model/add_data.dart';
-import 'package:project/utility/utility.dart';
-import '../dbfunctions/db_functions.dart';
-
+import 'package:project/utils/utility.dart';
+import 'package:provider/provider.dart';
+import '../../controller/dbfunction_provider.dart';
+import '../transactionScreen/transactionScreen.dart';
 
 class Home extends StatefulWidget {
-   String username;
-  Home({super.key,  required this.username});
+  String username;
+  Home({super.key, required this.username});
 
   @override
   State<Home> createState() => _HomeState();
@@ -17,16 +16,20 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   @override
+  void initState() {
+    super.initState();
+    Provider.of<DbfunctionProvider>(context, listen: false).getalldata();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-    getalldata();
+    // getalldata();
     return Scaffold(
         body: SafeArea(
             child: Stack(children: [
       Column(
-      
         children: [
-          
           Container(
             width: size.width,
             height: size.height * 0.35,
@@ -37,19 +40,20 @@ class _HomeState extends State<Home> {
                     bottomRight: Radius.circular(20))),
             child: Padding(
               padding: const EdgeInsets.only(top: 30, left: 20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Hey ${widget.username}',
-                  
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                    ),
-                  )
-                ],
-              ),
+              child: Consumer(builder: (context, value, child) {
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Hey ${widget.username}',
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                      ),
+                    )
+                  ],
+                );
+              }),
             ),
           ),
         ],
@@ -58,7 +62,7 @@ class _HomeState extends State<Home> {
         top: 120,
         left: 20,
         child: Container(
-          height: size.height*0.25,
+          height: size.height * 0.25,
           width: size.width * 0.9,
           decoration: BoxDecoration(
             boxShadow: [
@@ -67,9 +71,9 @@ class _HomeState extends State<Home> {
                 offset: const Offset(0, 6),
                 blurRadius: 12,
                 spreadRadius: 6,
-              )
+              ),
             ],
-            color: Color(0xFFFCFF5B),
+            color: const Color(0xFFFCFF5B),
             borderRadius: BorderRadius.circular(15),
           ),
           child: Column(
@@ -99,7 +103,7 @@ class _HomeState extends State<Home> {
                 child: Row(
                   children: [
                     Text(
-                      '\$ ${total()}',
+                      '\$${UtilityProvider().total()}',
                       style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 23,
@@ -112,7 +116,7 @@ class _HomeState extends State<Home> {
                 height: 25,
               ),
               const Padding(
-                padding: EdgeInsets.only(left: 7,top: 25),
+                padding: EdgeInsets.only(left: 7, top: 25),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -166,14 +170,14 @@ class _HomeState extends State<Home> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      '\$ ${income()}',
+                      '\$ ${UtilityProvider().income()}',
                       style: const TextStyle(
                         fontWeight: FontWeight.w600,
                         fontSize: 18,
                       ),
                     ),
                     Text(
-                      '\$ ${expense()}',
+                      '\$ ${UtilityProvider().expense()}',
                       style: const TextStyle(
                         fontWeight: FontWeight.w600,
                         fontSize: 18,
@@ -190,54 +194,62 @@ class _HomeState extends State<Home> {
           padding: const EdgeInsets.only(top: 350),
           child: Column(children: [
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: ValueListenableBuilder(
-                valueListenable: addListNotifier,
-                builder: (context, value, child) {
-                  return Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text(
-                        'Transactions History',
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text(
+                      'Transactions History',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w800,
+                        fontSize: 20,
+                        color: Colors.black,
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) {
+                            return Transaction(
+                              username: widget.username,
+                            );
+                          },
+                        ));
+                      },
+                      child: Text(
+                        'See all',
                         style: TextStyle(
                           fontWeight: FontWeight.w800,
-                          fontSize: 20,
-                          color: Colors.black,
+                          fontSize: 16,
+                          color: Colors.grey.shade700,
                         ),
                       ),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) {
-                              return Transaction(username: widget.username,);
-                            },
-                          ));
-                        },
-                        child: Text(
-                          'See all',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w800,
-                            fontSize: 16,
-                            color: Colors.grey.shade700,
-                          ),
-                        ),
-                      )
-                    ],
-                  );
-                },
-              ),
-            ),
-            const SizedBox(
-              height: 30,
-            ),
-            Expanded(
-              child: ValueListenableBuilder(
-                valueListenable: addListNotifier,
-                builder:
-                    (BuildContext ctx, List<add_data> AddList, Widget? child) {
-                  return ListView.separated(
+                    )
+                  ],
+                ))
+          ])),
+      const SizedBox(
+        height: 30,
+      ),
+      Expanded(
+        child: (Provider.of<DbfunctionProvider>(context)
+                .transactionList
+                .isEmpty)
+            ? const Padding(
+                padding: EdgeInsets.only(left: 120, top: 500),
+                child: Text(
+                  'No transactions available',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+              )
+            : Padding(
+                padding: const EdgeInsets.only(top: 400),
+                child: ListView.separated(
                     itemBuilder: (ctx, index) {
-                      final data = AddList[index];
+                      final data = Provider.of<DbfunctionProvider>(context)
+                          .transactionList
+                          .reversed
+                          .toList()[index];
                       return ListTile(
                           title: Text(
                             data.description,
@@ -265,12 +277,16 @@ class _HomeState extends State<Home> {
                     separatorBuilder: (ctx, index) {
                       return const Divider();
                     },
-                    itemCount: AddList.length > 4 ? 4 : AddList.length,
-                  );
-                },
+                    itemCount: Provider.of<DbfunctionProvider>(context)
+                                .transactionList
+                                .length >
+                            4
+                        ? 4
+                        : Provider.of<DbfunctionProvider>(context)
+                            .transactionList
+                            .length),
               ),
-            )
-          ]))
+      ),
     ])));
   }
 }

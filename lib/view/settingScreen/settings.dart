@@ -1,25 +1,19 @@
 // ignore_for_file: must_be_immutable
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:project/Screens/about%20.dart';
-import 'package:project/Screens/bottomscreen.dart';
-import 'package:project/Screens/privacy.dart';
-import 'package:project/Screens/reset.dart';
-import 'package:project/Screens/terms.dart';
 import 'package:project/model/add_data.dart';
+import '../settings/about .dart';
+import '../../widget/bottomscreen.dart';
+import '../settings/privacy.dart';
+import '../settings/reset.dart';
+import '../settings/terms.dart';
 
 
-class Settings extends StatefulWidget {
+class Settings extends StatelessWidget {
   String username;
   Settings({super.key, required this.username});
 
   final box = Hive.box<add_data>('data');
-  @override
-  State<Settings> createState() => _SettingsState();
-}
-
-class _SettingsState extends State<Settings> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,7 +23,7 @@ class _SettingsState extends State<Settings> {
           Container(
             width: double.infinity,
             height: 140,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
                 color: Color(0xFFFDC603),
                 borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(30),
@@ -37,7 +31,7 @@ class _SettingsState extends State<Settings> {
                 )),
             child: Column(
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 40,
                 ),
                 Padding(
@@ -51,7 +45,7 @@ class _SettingsState extends State<Settings> {
                             Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) {
                                 return Bottom(
-                                  username: widget.username,
+                                  username: username,
                                 );
                               },
                             ));
@@ -93,7 +87,7 @@ class _SettingsState extends State<Settings> {
                       Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) {
                           return About(
-                            username: widget.username,
+                            username: username,
                           );
                         },
                       ));
@@ -156,7 +150,7 @@ class _SettingsState extends State<Settings> {
                       Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) {
                           return Term(
-                            username: widget.username,
+                            username: username,
                           );
                         },
                       ));
@@ -189,7 +183,7 @@ class _SettingsState extends State<Settings> {
                       Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) {
                           return Privacy(
-                            username: widget.username,
+                            username: username,
                           );
                         },
                       ));

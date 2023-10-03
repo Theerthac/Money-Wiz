@@ -1,11 +1,12 @@
 // ignore_for_file: must_be_immutable, 
 
 import 'package:flutter/material.dart';
-import 'package:project/Screens/Statistics.dart';
-import 'package:project/Screens/addscreen.dart';
-import 'package:project/Screens/homescreen.dart';
-import 'package:project/Screens/settings.dart';
-import 'package:project/Screens/transactionsscreen.dart';
+import 'package:project/view/satisticScreen/satisticScreen.dart';
+import '../view/addScreen/addscreen.dart';
+import '../view/homeScreen/homeScreen.dart';
+import '../view/settingScreen/settings.dart';
+import '../view/transactionScreen/transactionScreen.dart';
+
 
 class Bottom extends StatefulWidget {
   String username;
@@ -17,14 +18,14 @@ class Bottom extends StatefulWidget {
 }
 
 class _BottomState extends State<Bottom> {
-  int index_color = 0;
+  int indexColor = 0;
  
  late List screens =  [Home(username:widget.username,), Transaction(username: widget.username), 
-  Statistics(username: widget.username,), Settings(username: widget.username,)];
+  Statistics(username: widget.username), Settings(username: widget.username,)];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: screens[index_color],
+      body: screens[indexColor],
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.of(context).push(MaterialPageRoute(
@@ -33,9 +34,9 @@ class _BottomState extends State<Bottom> {
             ),
           ));
         },
+        backgroundColor: const Color(0xFFFDC603),
        
         child:  const Icon(Icons.add),
-        backgroundColor: const Color(0xFFFDC603),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
@@ -48,25 +49,25 @@ class _BottomState extends State<Bottom> {
               GestureDetector(
                 onTap: () {
                   setState(() {
-                    index_color = 0;
+                    indexColor = 0;
                   });
                 },
                 child: Icon(
                   Icons.home,
                   size: 35,
-                  color: index_color == 0 ? Colors.black : Colors.grey,
+                  color: indexColor == 0 ? Colors.black : Colors.grey,
                 ),
               ),
               GestureDetector(
                 onTap: () {
                   setState(() {
-                    index_color = 1;
+                    indexColor = 1;
                   });
                 },
                 child: Icon(
                   Icons.history,
                   size: 35,
-                  color: index_color == 1 ? Colors.black : Colors.grey,
+                  color: indexColor == 1 ? Colors.black : Colors.grey,
                 ),
               ),
               const SizedBox(
@@ -75,25 +76,25 @@ class _BottomState extends State<Bottom> {
               GestureDetector(
                 onTap: () {
                   setState(() {
-                    index_color = 2;
+                    indexColor = 2;
                   });
                 },
                 child: Icon(
                   Icons.bar_chart_outlined,
                   size: 35,
-                  color: index_color == 2 ? Colors.black : Colors.grey,
+                  color: indexColor == 2 ? Colors.black : Colors.grey,
                 ),
               ),
               GestureDetector(
                 onTap: () {
                   setState(() {
-                    index_color = 3;
+                    indexColor = 3;
                   });
                 },
                 child: Icon(
                   Icons.settings,
                   size: 35,
-                  color: index_color == 3 ? Colors.black : Colors.grey,
+                  color: indexColor == 3 ? Colors.black : Colors.grey,
                 ),
               ),
             ],

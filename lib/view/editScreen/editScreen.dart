@@ -1,41 +1,69 @@
+// ignore_for_file: must_be_immutable, camel_case_types, prefer_typing_uninitialized_variables, non_constant_identifier_names, unrelated_type_equality_checks
 
-// ignore_for_file: must_be_immutable
 import 'package:flutter/material.dart';
-import 'package:project/Screens/bottomscreen.dart';
-import 'package:project/dbfunctions/db_functions.dart';
+import 'package:project/controller/addscreen_provider.dart';
 import 'package:project/model/add_data.dart';
+import 'package:provider/provider.dart';
+import '../../controller/dbfunction_provider.dart';
+import '../../widget/bottomscreen.dart';
 
-class Add extends StatefulWidget {
+
+
+
+class Edit_Data extends StatefulWidget {
   String username;
-   Add({super.key ,required this.username});
+  var select;
+  var date;
+  var amount;
+  var description;
+  int index;
+
+  Edit_Data({
+    super.key,
+    required this.username,
+    required this.index,
+    required this.select,
+    required this.date,
+    required this.amount,
+    required this.description,
+  });
 
   @override
-  State<Add> createState() => _AddState();
+  State<Edit_Data> createState() => _Edit_DataState();
 }
 
-class _AddState extends State<Add> {
-  DateTime date = DateTime.now();
-  String? selecteditems;
+class _Edit_DataState extends State<Edit_Data> {
 
-  final TextEditingController description_Controller = TextEditingController();
-  final TextEditingController amount_Controller = TextEditingController();
+  TextEditingController descriptionController = TextEditingController();
+  TextEditingController amountController = TextEditingController();
+  TextEditingController dateController = TextEditingController();
+  TextEditingController selectController = TextEditingController();
 
   final List<String> _item = ['Income', 'Expense'];
 
-  final GlobalKey<FormState> _FieldKey = GlobalKey<FormState>();
+  @override
+  void initState() {
+    super.initState();
+    descriptionController = TextEditingController(text: widget.description);
+    amountController = TextEditingController(text: widget.amount);
+    Provider.of<AddScreenProvider>(context, listen: false).selecteditems =
+        widget.select;
+    Provider.of<AddScreenProvider>(context, listen: false).date = widget.date;
+  }
 
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       body: SingleChildScrollView(
         child: SafeArea(
             child: Stack(
           alignment: AlignmentDirectional.center,
           children: [
-            background_container(context),
+            backgroundContainer(context),
             Positioned(
               top: 120,
-              child: main_container(),
+              child: mainContainer(),
             )
           ],
         )),
@@ -43,7 +71,7 @@ class _AddState extends State<Add> {
     );
   }
 
-  Container main_container() {
+  Container mainContainer() {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
@@ -51,66 +79,62 @@ class _AddState extends State<Add> {
       ),
       width: 340,
       height: 550,
-      child: Form(
-        key: _FieldKey,
-        child: Column(children: [
-          const SizedBox(
-            height: 50,
-          ),
-          name(),
-          const SizedBox(
-            height: 30,
-          ),
-          Container(
-            alignment: Alignment.bottomLeft,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(
-                    width: 2, color: const Color.fromARGB(255, 182, 181, 181))),
-            width: 300,
-            child: TextButton(
+      child: Column(children: [
+        const SizedBox(
+          height: 50,
+        ),
+        name(),
+        const SizedBox(
+          height: 30,
+        ),
+        Container(
+          alignment: Alignment.bottomLeft,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(
+                  width: 2, color: const Color.fromARGB(255, 182, 181, 181))),
+          width: 300,
+          child: Consumer<AddScreenProvider>(builder: (context, value, child) {
+            
+            return TextButton(
               onPressed: () async {
                 DateTime? newDate = await showDatePicker(
                     context: context,
-                    initialDate: date,
+                    initialDate: value.date,
                     firstDate: DateTime(2020),
                     lastDate: DateTime(2100));
                 if (newDate == Null) return;
-                setState(() {
-                  date = newDate!;
-                });
+                value.changeDatevalue(newDate!);
               },
               child: Text(
-                'Date  :${date.year} /  ${date.day} / ${date.month}',
+                'Date  :${value.date.year} /  ${value.date.day} / ${value.date.month}',
                 style: const TextStyle(
                   fontSize: 15,
                   color: Colors.black,
                 ),
               ),
-            ),
-          ),
-          const SizedBox(
-            height: 30,
-          ),
-          amount(),
-          const SizedBox(
-            height: 30,
-          ),
-          description(),
-          const SizedBox(
-            height: 30,
-          ),
-          ElevatedButton.icon(
-            onPressed: () {
-              setState(() {
-                onaddbuttonclicked(context);
-              });
-            },
-            icon: const Icon(Icons.add),
-            label: const Text('Add'),
-          ),
-        ]),
-      ),
+            );
+          }),
+        ),
+        const SizedBox(
+          height: 30,
+        ),
+        amount(),
+        const SizedBox(
+          height: 30,
+        ),
+        description(),
+        const SizedBox(
+          height: 30,
+        ),
+        ElevatedButton.icon(
+          onPressed: () {
+            updateAll();
+          },
+          icon: const Icon(Icons.add),
+          label: const Text('Update'),
+        ),
+      ]),
     );
   }
 
@@ -118,11 +142,11 @@ class _AddState extends State<Add> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15),
       child: TextFormField(
-          controller: description_Controller,
+          controller: descriptionController,
           decoration: InputDecoration(
               contentPadding:
                   const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-              labelText: 'Description',
+              labelText: 'Discription',
               labelStyle: const TextStyle(
                   fontSize: 17, color: Color.fromARGB(255, 74, 73, 73)),
               enabledBorder: OutlineInputBorder(
@@ -143,8 +167,7 @@ class _AddState extends State<Add> {
       padding: const EdgeInsets.symmetric(horizontal: 15),
       child: TextFormField(
           keyboardType: TextInputType.number,
-          controller: amount_Controller,
-         
+          controller: amountController,
           decoration: InputDecoration(
               contentPadding:
                   const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
@@ -176,36 +199,37 @@ class _AddState extends State<Add> {
                 width: 2,
                 color: const Color.fromARGB(255, 208, 205, 205),
               )),
-          child: DropdownButton<String>(
-            items: _item
-                .map((e) => DropdownMenuItem(
-                      child: Container(
-                        child: Text(
-                          e,
-                          style: const TextStyle(fontSize: 17),
+          child: Consumer<AddScreenProvider>(builder: (context, value, child) {
+            return DropdownButton<String>(
+              items: _item
+                  .map((e) => DropdownMenuItem(
+                        child: Container(
+                          child: Text(
+                            e,
+                            style: const TextStyle(fontSize: 17),
+                          ),
                         ),
-                      ),
-                      value: e,
-                    ))
-                .toList(),
-            hint: const Text(
-              'Select',
-              style: TextStyle(color: Colors.grey),
-            ),
-            dropdownColor: Colors.white,
-            isExpanded: true,
-            underline: Container(),
-            value: selecteditems,
-            onChanged: ((value) {
-              setState(() {
-                selecteditems = value!;
-              });
-            }),
-          )),
+                        value: e,
+                      ))
+                  .toList(),
+              hint: const Text(
+                'Select',
+                style: TextStyle(color: Colors.grey),
+              ),
+              dropdownColor: Colors.white,
+              isExpanded: true,
+              underline: Container(),
+              value: value.selecteditems,
+              onChanged: (value) {
+                Provider.of<AddScreenProvider>(context, listen: false)
+                    .changeselecteditemvalue(value);
+              },
+            );
+          })),
     );
   }
 
-  Column background_container(BuildContext context) {
+  Column backgroundContainer(BuildContext context) {
     return Column(
       children: [
         Container(
@@ -242,7 +266,7 @@ class _AddState extends State<Add> {
                       width: 60,
                     ),
                     const Text(
-                      'Add Transactions',
+                      'Edit Transaction',
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.w700,
@@ -259,30 +283,26 @@ class _AddState extends State<Add> {
     );
   }
 
-  Future<void> onaddbuttonclicked(BuildContext context) async {
-    final selecttype = selecteditems.toString();
-    final ddate = DateTime.now();
-    final amount = double.parse(amount_Controller.text);
-    final description = description_Controller.text.trim().toString();
+  Future<void> updateAll() async {
+    final edit =
+        Provider.of<AddScreenProvider>(context, listen: false).selecteditems;
+    final edit1 = Provider.of<AddScreenProvider>(context, listen: false).date;
+    final edit2 = double.parse(amountController.text);
+    final edit3 = descriptionController.text.trim().toString();
 
-    if (selecttype.isEmpty || amount == null || description.isEmpty) {
+    if (edit!.isEmpty ||edit2.isInfinite || edit3.isEmpty) {
       return;
     } else {
-      final llist = add_data(
-        select: selecttype,
-        dateTime: ddate,
-        amount: amount,
-        description: description,
-      );
+      final updation = add_data(
+          select: edit, dateTime: edit1, amount: edit2, description: edit3);
+      // editdata(widget.index, updation);
+      Provider.of<DbfunctionProvider>(context, listen: false)
+          .editdata(widget.index, updation);
 
-      addmoney(llist);
-
-      Navigator.of(context)
-          .pushReplacement(MaterialPageRoute(builder: (context) {
-        return Bottom(
-          username: widget.username,
-        );
-      }));
+      Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => Bottom(
+                username: widget.username,
+              )));
     }
   }
 }
