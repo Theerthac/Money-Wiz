@@ -8,8 +8,6 @@ class DbfunctionProvider extends ChangeNotifier {
   List<add_data> transactionList = [];
   List<add_data> chartList = [];
 
-
-
   Future<void> addmoney(add_data value) async {
     final addlistDb = await Hive.openBox<add_data>(transactionDbName);
     final id = await addlistDb.add(value);
@@ -17,8 +15,6 @@ class DbfunctionProvider extends ChangeNotifier {
 
     getalldata();
     notifyListeners();
-
-   
   }
 
   Future<void> getalldata() async {
@@ -26,7 +22,6 @@ class DbfunctionProvider extends ChangeNotifier {
     transactionList.clear();
     transactionList.addAll(addlistDb.values);
     notifyListeners();
-   
   }
 
   Future<void> deletedata(index) async {
@@ -36,13 +31,22 @@ class DbfunctionProvider extends ChangeNotifier {
     getalldata();
   }
 
-  Future<void> editdata(index, add_data value) async {
-    final addlistDb = await Hive.openBox<add_data>(transactionDbName);
-    transactionList.clear();
-    transactionList.addAll(addlistDb.values);
-    addlistDb.putAt(index,value);
-    notifyListeners();
-    getalldata();
-    
-  }
+  // Future<void> editdata(index, add_data value) async {
+  //   final addlistDb = await Hive.openBox<add_data>(transactionDbName);
+  //   transactionList.clear();
+  //   transactionList.addAll(addlistDb.values);
+  //   addlistDb.putAt(index,value);
+  //   notifyListeners();
+  //   getalldata();
+
+  // }
+Future<void> editdata(index, add_data value) async {
+  final addlistDb = await Hive.openBox<add_data>(transactionDbName);
+  transactionList.clear();
+  transactionList.addAll(addlistDb.values);
+  addlistDb.putAt(index, value); // This line updates the data at the specified index.
+  notifyListeners();
+  getalldata();
+}
+
 }

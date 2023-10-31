@@ -151,7 +151,11 @@ class Transaction extends StatelessWidget {
                                     icon: const Icon(
                                       Icons.edit,
                                       color: Colors.green,
-                                    ))
+                                    )),
+
+                   
+ 
+
                               ],
                             )),
                       );

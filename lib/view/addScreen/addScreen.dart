@@ -51,10 +51,7 @@ class _AddState extends State<Add> {
             child: Stack(
           alignment: AlignmentDirectional.center,
           children: [
-            Expanded(
-              flex: 1,
-              
-              child: Text('rfer'))
+            
             backgroundContainer(context),
             Positioned(
               top: 120,

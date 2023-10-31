@@ -26,6 +26,7 @@ class _HomeState extends State<Home> {
     final Size size = MediaQuery.of(context).size;
     // getalldata();
     return Scaffold(
+      
         body: SafeArea(
             child: Stack(children: [
       Column(
@@ -236,7 +237,7 @@ class _HomeState extends State<Home> {
                 .transactionList
                 .isEmpty)
             ? const Padding(
-                padding: EdgeInsets.only(left: 120, top: 500),
+                padding: EdgeInsets.only(left: 95, top: 500),
                 child: Text(
                   'No transactions available',
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),

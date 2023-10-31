@@ -18,7 +18,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
   Hive.registerAdapter(adddataAdapter());
-  await Hive.openBox<add_data>('data');
+ await Hive.openBox<add_data>('data');
   runApp(const MyApp());
 }
 

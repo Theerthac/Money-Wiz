@@ -1,14 +1,9 @@
-// ignore_for_file: must_be_immutable, camel_case_types, prefer_typing_uninitialized_variables, non_constant_identifier_names, unrelated_type_equality_checks
-
 import 'package:flutter/material.dart';
 import 'package:project/controller/addscreen_provider.dart';
 import 'package:project/model/add_data.dart';
 import 'package:provider/provider.dart';
 import '../../controller/dbfunction_provider.dart';
 import '../../widget/bottomscreen.dart';
-
-
-
 
 class Edit_Data extends StatefulWidget {
   String username;
@@ -33,7 +28,6 @@ class Edit_Data extends StatefulWidget {
 }
 
 class _Edit_DataState extends State<Edit_Data> {
-
   TextEditingController descriptionController = TextEditingController();
   TextEditingController amountController = TextEditingController();
   TextEditingController dateController = TextEditingController();
@@ -53,7 +47,6 @@ class _Edit_DataState extends State<Edit_Data> {
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       body: SingleChildScrollView(
         child: SafeArea(
@@ -95,7 +88,6 @@ class _Edit_DataState extends State<Edit_Data> {
                   width: 2, color: const Color.fromARGB(255, 182, 181, 181))),
           width: 300,
           child: Consumer<AddScreenProvider>(builder: (context, value, child) {
-            
             return TextButton(
               onPressed: () async {
                 DateTime? newDate = await showDatePicker(
@@ -129,7 +121,7 @@ class _Edit_DataState extends State<Edit_Data> {
         ),
         ElevatedButton.icon(
           onPressed: () {
-            updateAll();
+            updateAll(context);
           },
           icon: const Icon(Icons.add),
           label: const Text('Update'),
@@ -283,26 +275,31 @@ class _Edit_DataState extends State<Edit_Data> {
     );
   }
 
-  Future<void> updateAll() async {
-    final edit =
-        Provider.of<AddScreenProvider>(context, listen: false).selecteditems;
-    final edit1 = Provider.of<AddScreenProvider>(context, listen: false).date;
-    final edit2 = double.parse(amountController.text);
-    final edit3 = descriptionController.text.trim().toString();
 
-    if (edit!.isEmpty ||edit2.isInfinite || edit3.isEmpty) {
-      return;
-    } else {
-      final updation = add_data(
-          select: edit, dateTime: edit1, amount: edit2, description: edit3);
-      // editdata(widget.index, updation);
-      Provider.of<DbfunctionProvider>(context, listen: false)
-          .editdata(widget.index, updation);
+    Future<void> updateAll(BuildContext context) async {
+      final edit =
+          Provider.of<AddScreenProvider>(context, listen: false).selecteditems;
+      final edit1 = Provider.of<AddScreenProvider>(context, listen: false).date;
+      final edit2 = double.parse(amountController.text);
+      final edit3 = descriptionController.text.trim().toString();
 
-      Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => Bottom(
-                username: widget.username,
-              )));
+     
+        if (edit!.isEmpty || edit2.isInfinite || edit3.isEmpty) {
+          return;
+        } else {
+         
+          final updation = add_data(
+              select: edit, dateTime: edit1, amount: edit2, description: edit3);
+          // editdata(widget.index, updation);
+          Provider.of<DbfunctionProvider>(context, listen: false)
+              .editdata(widget.index, updation);
+
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => Bottom(
+                    username: widget.username,
+                  )));
+        }
+      }
     }
-  }
-}
+  
+
