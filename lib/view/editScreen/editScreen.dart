@@ -121,7 +121,7 @@ class _Edit_DataState extends State<Edit_Data> {
         ),
         ElevatedButton.icon(
           onPressed: () {
-            updateAll(context);
+            updateAll();
           },
           icon: const Icon(Icons.add),
           label: const Text('Update'),
@@ -276,7 +276,7 @@ class _Edit_DataState extends State<Edit_Data> {
   }
 
 
-    Future<void> updateAll(BuildContext context) async {
+    Future<void> updateAll() async {
       final edit =
           Provider.of<AddScreenProvider>(context, listen: false).selecteditems;
       final edit1 = Provider.of<AddScreenProvider>(context, listen: false).date;
