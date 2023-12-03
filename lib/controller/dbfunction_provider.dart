@@ -10,12 +10,12 @@ class DbfunctionProvider extends ChangeNotifier {
 
   Future<void> addmoney(add_data value) async {
     final addlistDb = await Hive.openBox<add_data>(transactionDbName);
-    final id = await addlistDb.add(value);
-    value.id = id;
-
+    await addlistDb.put(value.id, value);
+  
     getalldata();
     notifyListeners();
   }
+
 
   Future<void> getalldata() async {
     final addlistDb = await Hive.openBox<add_data>(transactionDbName);
@@ -40,13 +40,11 @@ class DbfunctionProvider extends ChangeNotifier {
   //   getalldata();
 
   // }
-Future<void> editdata(index, add_data value) async {
-  final addlistDb = await Hive.openBox<add_data>(transactionDbName);
-  transactionList.clear();
-  transactionList.addAll(addlistDb.values);
-  addlistDb.putAt(index, value); // This line updates the data at the specified index.
-  notifyListeners();
-  getalldata();
-}
-
+  Future<void> editData(add_data update) async {
+    final addlistDb = await Hive.openBox<add_data>(transactionDbName);
+    addlistDb.put(update.id, update);
+   
+    notifyListeners();
+    getalldata();
+  }
 }

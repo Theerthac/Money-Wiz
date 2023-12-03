@@ -1,7 +1,5 @@
 // ignore_for_file: constant_identifier_names
 
-
-
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:project/controller/addscreen_provider.dart';
@@ -18,7 +16,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
   Hive.registerAdapter(adddataAdapter());
- await Hive.openBox<add_data>('data');
+  await Hive.openBox<add_data>('data');
   runApp(const MyApp());
 }
 
@@ -27,7 +25,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-   
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(

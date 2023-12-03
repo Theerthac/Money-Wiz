@@ -24,7 +24,8 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-    // getalldata();
+    // getalldata();4
+    
     return Scaffold(
       
         body: SafeArea(

@@ -292,28 +292,28 @@ class _AddState extends State<Add> {
     final selecttype =
         Provider.of<AddScreenProvider>(context, listen: false).selecteditems;
     final ddate = Provider.of<AddScreenProvider>(context, listen: false).date;
-    final amount = double.tryParse(amountController.text) ?? 0.0;
+    final amount = amountController.text.trim();
     final description = descriptionController.text.trim().toString();
+        final _id= DateTime.now().microsecondsSinceEpoch.toString();
 
-    if (selecttype!.isEmpty || amount <= 0 || description.isEmpty) {
+  
+
+    if (selecttype!.isEmpty || amount.isEmpty || description.isEmpty) {
       return;
-    } else {
-      final dataToadd = add_data(
-        select: selecttype,
-        dateTime: ddate,
-        amount: amount,
-        description: description,
-      );
+    } 
+
+     final _tarnsactionAdd=add_data(selecttype, ddate, amount, description,_id);
+      // final dataToadd = add_data(
+      //   select: selecttype,
+      //   dateTime: ddate,
+      //   amount: amount,
+      //   description: description,
+      // );
 
       // addmoney(dataToadd);
-
-      Navigator.of(context)
-          .pushReplacement(MaterialPageRoute(builder: (context) {
-        return Bottom(
-          username: widget.username,
-        );
-      }));
-      Provider.of<DbfunctionProvider>(context, listen: false).addmoney(dataToadd);
+       Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (ctx)=>Bottom(username:widget.username ,)));
+          
+      Provider.of<DbfunctionProvider>(context, listen: false).addmoney(_tarnsactionAdd);
     }
   }
-}
+

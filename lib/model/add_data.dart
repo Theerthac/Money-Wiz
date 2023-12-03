@@ -8,7 +8,7 @@ part 'add_data.g.dart';
 class add_data extends HiveObject {
 
    @HiveField(0)
-  int? id;
+  String id;
   
   
   @HiveField(1)
@@ -18,17 +18,16 @@ class add_data extends HiveObject {
   DateTime dateTime;
 
   @HiveField(3)
-  double amount;
+  String amount;
 
   @HiveField(4)
   String description;
 
-  add_data({
-    
-    required this.select,
-    required this.dateTime,
-    required this.amount,
-    required this.description,
+  add_data(
+    this.select,
+    this.dateTime,
+    this.amount,
+    this.description,
     this.id,
-  });
+  );
 }

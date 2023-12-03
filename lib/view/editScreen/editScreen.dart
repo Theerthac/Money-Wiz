@@ -1,22 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:project/controller/addscreen_provider.dart';
 import 'package:project/model/add_data.dart';
+import 'package:project/view/transactionScreen/transactionScreen.dart';
 import 'package:provider/provider.dart';
 import '../../controller/dbfunction_provider.dart';
-import '../../widget/bottomscreen.dart';
 
+// ignore: must_be_immutable
 class Edit_Data extends StatefulWidget {
   String username;
   var select;
   var date;
   var amount;
   var description;
-  int index;
+  String id;
 
   Edit_Data({
     super.key,
     required this.username,
-    required this.index,
+    required this.id,
     required this.select,
     required this.date,
     required this.amount,
@@ -32,6 +33,7 @@ class _Edit_DataState extends State<Edit_Data> {
   TextEditingController amountController = TextEditingController();
   TextEditingController dateController = TextEditingController();
   TextEditingController selectController = TextEditingController();
+  final _formkey = GlobalKey<FormState>();
 
   final List<String> _item = ['Income', 'Expense'];
 
@@ -42,6 +44,7 @@ class _Edit_DataState extends State<Edit_Data> {
     amountController = TextEditingController(text: widget.amount);
     Provider.of<AddScreenProvider>(context, listen: false).selecteditems =
         widget.select;
+
     Provider.of<AddScreenProvider>(context, listen: false).date = widget.date;
   }
 
@@ -64,69 +67,77 @@ class _Edit_DataState extends State<Edit_Data> {
     );
   }
 
-  Container mainContainer() {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
-        color: Colors.white,
-      ),
-      width: 340,
-      height: 550,
-      child: Column(children: [
-        const SizedBox(
-          height: 50,
+  Form mainContainer() {
+    return Form(
+      key: _formkey,
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          color: Colors.white,
         ),
-        name(),
-        const SizedBox(
-          height: 30,
-        ),
-        Container(
-          alignment: Alignment.bottomLeft,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              border: Border.all(
-                  width: 2, color: const Color.fromARGB(255, 182, 181, 181))),
-          width: 300,
-          child: Consumer<AddScreenProvider>(builder: (context, value, child) {
-            return TextButton(
-              onPressed: () async {
-                DateTime? newDate = await showDatePicker(
-                    context: context,
-                    initialDate: value.date,
-                    firstDate: DateTime(2020),
-                    lastDate: DateTime(2100));
-                if (newDate == Null) return;
-                value.changeDatevalue(newDate!);
-              },
-              child: Text(
-                'Date  :${value.date.year} /  ${value.date.day} / ${value.date.month}',
-                style: const TextStyle(
-                  fontSize: 15,
-                  color: Colors.black,
+        width: 340,
+        height: 550,
+        child: Column(children: [
+          const SizedBox(
+            height: 50,
+          ),
+          name(),
+          const SizedBox(
+            height: 30,
+          ),
+          Container(
+            alignment: Alignment.bottomLeft,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(
+                    width: 2, color: const Color.fromARGB(255, 182, 181, 181))),
+            width: 300,
+            child:
+                Consumer<AddScreenProvider>(builder: (context, value, child) {
+              return TextButton(
+                onPressed: () async {
+                  DateTime? newDate = await showDatePicker(
+                      context: context,
+                      initialDate: value.date,
+                      firstDate: DateTime(2020),
+                      lastDate: DateTime(2100));
+                  if (newDate == Null) return;
+                  value.changeDatevalue(newDate!);
+                },
+                child: Text(
+                  'Date  :${value.date.year} /  ${value.date.day} / ${value.date.month}',
+                  style: const TextStyle(
+                    fontSize: 15,
+                    color: Colors.black,
+                  ),
                 ),
-              ),
-            );
-          }),
-        ),
-        const SizedBox(
-          height: 30,
-        ),
-        amount(),
-        const SizedBox(
-          height: 30,
-        ),
-        description(),
-        const SizedBox(
-          height: 30,
-        ),
-        ElevatedButton.icon(
-          onPressed: () {
-            updateAll();
-          },
-          icon: const Icon(Icons.add),
-          label: const Text('Update'),
-        ),
-      ]),
+              );
+            }),
+          ),
+          const SizedBox(
+            height: 30,
+          ),
+          amount(),
+          const SizedBox(
+            height: 30,
+          ),
+          description(),
+          const SizedBox(
+            height: 30,
+          ),
+          ElevatedButton.icon(
+            onPressed: () {
+              onSaveUpadteButtonClicked();
+              if (_formkey.currentState!.validate()) {
+              } else {
+                print('empty value');
+              }
+            },
+            icon: const Icon(Icons.add),
+            label: const Text('Update'),
+          ),
+        ]),
+      ),
     );
   }
 
@@ -275,31 +286,57 @@ class _Edit_DataState extends State<Edit_Data> {
     );
   }
 
+  // Future<void> updateAll() async {
+  //   final edit =
+  //       Provider.of<AddScreenProvider>(context, listen: false).selecteditems;
+  //   final edit1 = Provider.of<AddScreenProvider>(context, listen: false).date;
+  //   final edit2 = double.parse(amountController.text);
+  //   final edit3 = descriptionController.text.trim().toString();
 
-    Future<void> updateAll() async {
-      final edit =
-          Provider.of<AddScreenProvider>(context, listen: false).selecteditems;
-      final edit1 = Provider.of<AddScreenProvider>(context, listen: false).date;
-      final edit2 = double.parse(amountController.text);
-      final edit3 = descriptionController.text.trim().toString();
+  //   if (edit!.isEmpty || edit2.isInfinite || edit3.isEmpty) {
+  //     return;
+  //   } else {
+  //     final updation = add_data(
+  //         select: edit, dateTime: edit1, amount: edit2, description: edit3);
+  //     // editdata(widget.index, updation);
+  //     Provider.of<DbfunctionProvider>(context, listen: false)
+  //         .editdata(widget.index, updation);
 
-     
-        if (edit!.isEmpty || edit2.isInfinite || edit3.isEmpty) {
-          return;
-        } else {
-         
-          final updation = add_data(
-              select: edit, dateTime: edit1, amount: edit2, description: edit3);
-          // editdata(widget.index, updation);
-          Provider.of<DbfunctionProvider>(context, listen: false)
-              .editdata(widget.index, updation);
+  //     Navigator.of(context).push(MaterialPageRoute(
+  //         builder: (context) => Bottom(
+  //               username: widget.username,
+  //             )));
+  //   }
+  // }
 
-          Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => Bottom(
-                    username: widget.username,
-                  )));
-        }
-      }
+  Future<void> onSaveUpadteButtonClicked() async {
+    final edit =
+        Provider.of<AddScreenProvider>(context, listen: false).selecteditems;
+    final edit1 = Provider.of<AddScreenProvider>(context, listen: false).date;
+    final edit2 = amountController.text.trim();
+    final edit3 = descriptionController.text.trim().toString();
+
+    final _id = widget.id;
+
+    if (edit!.isEmpty || edit2.isEmpty || edit3.isEmpty) {
+      return;
     }
-  
-
+    if (_formkey.currentState!.validate()) {
+      final updation = add_data(edit, edit1, edit2, edit3,_id);
+      Navigator.of(context).pushReplacement(MaterialPageRoute(
+          builder: (ctx) => Transaction(
+                username: widget.username,
+              )));
+      // updateTransaction( updation);
+      Provider.of<DbfunctionProvider>(context, listen: false)
+          .editData(updation);
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: Colors.green,
+        content: Text('UPDATED'),
+      ));
+    } else {
+      print('value empty');
+    }
+  }
+}

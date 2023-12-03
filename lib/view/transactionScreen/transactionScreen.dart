@@ -130,8 +130,9 @@ class Transaction extends StatelessWidget {
                                       fontSize: 17,
                                       fontWeight: FontWeight.w700,
                                       color: data.select == 'Income'
-                                          ? Colors.green
-                                          : Colors.red),
+                                           ? Colors.green
+                                           : Colors.red,
+                                           ),
                                 ),
                                 const SizedBox(
                                   width: 10,
@@ -141,7 +142,7 @@ class Transaction extends StatelessWidget {
                                       Navigator.of(context).push(MaterialPageRoute(
                                           builder: (context) => Edit_Data(
                                               username: username,
-                                              index: index,
+                                              id: data.id,
                                               select: data.select,
                                               date: DateTime(data.dateTime.year, data.dateTime.month, data.dateTime.day),
                                                  
